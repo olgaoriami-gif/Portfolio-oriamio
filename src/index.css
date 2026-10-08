@@ -1,0 +1,225 @@
+@font-face {
+  font-family: 'Oriamio';
+  src: url('/fonts/Oriamio-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ─── Colors ─── */
+    --color-bg: #0a0a0a;           /* neutral-950 */
+    --color-bg-elevated: #171717;  /* neutral-900 */
+    --color-bg-card: #262626;      /* neutral-800 */
+    --color-border: #171717;       /* same as elevated — nearly invisible on dark bg */
+    --color-border-hover: #262626; /* neutral-800 on hover */
+
+    --color-text-primary: #fafafa; /* neutral-50 / white */
+    --color-text-secondary: #d4d4d4; /* neutral-300 */
+    --color-text-muted: #a3a3a3;   /* neutral-400 */
+
+    --color-accent: #3b82f6;
+    --color-accent-hover: #60a5fa;
+    --color-accent-subtle: rgba(59, 130, 246, 0.1);
+
+    --color-pill: rgba(255, 255, 255, 0.1);
+
+    /* ─── Static (theme-independent) ─── */
+    --color-static-white: #ffffff;
+    --color-static-light: #e5e5e5;
+    --color-static-muted: #a3a3a3;
+
+    /* ─── Fonts ─── */
+    --font-body: 'JetBrains Mono', monospace;
+    --font-heading: 'JetBrains Mono', monospace;
+    --font-sticker: 'Oriamio', monospace;
+
+    /* ─── Spacing ─── */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+    --space-3xl: 64px;
+
+    /* ─── Radius ─── */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-2xl: 24px;
+    --radius-full: 9999px;
+
+    /* ─── Sizes ─── */
+    --header-height: 64px;
+    --grid-gap: 16px;
+    --container-padding: 16px;
+
+    /* ─── Border Width ─── */
+    --border-width: 1px;
+    --border-width-accent: 2px;
+    --border-width-none: 0px;
+  }
+
+  /* ─── Dark theme (default) ─── */
+  [data-theme='dark'] {
+    /* Эталонный цвет поверхностей — один hex, как в обычном color picker'e.
+       Поменяйте только его: elevated/card/border-hover пересчитаются сами
+       через color-mix(), сохраняя текущую пропорцию светлее/темнее. */
+    --color-base: rgb(30, 1, 1);
+    /* Эталонный цвет линий/бордеров (белая обводка на тёмном фоне). */
+    --color-line-base: rgb(255, 255, 255);
+
+    --color-bg: var(--color-base);
+    --color-bg-elevated: color-mix(in srgb, var(--color-line-base), transparent 93%);
+    --color-bg-card: color-mix(in srgb, var(--color-none), transparent 90%);
+    --color-bg-overlay: color-mix(in srgb, var(--color-line-base), transparent 65%);
+    --color-border: color-mix(in srgb, var(--color-line-base), transparent 60%);
+    --color-border-hover: var(--color-bg-card);
+    --color-text-primary: #fafafa;
+    --color-text-secondary: #d4d4d4;
+    --color-text-muted: #a3a3a3;
+    --color-accent: #3b82f6;
+    --color-accent-hover: #60a5fa;
+    --color-accent-subtle: rgba(59, 130, 246, 0.1);
+    --color-pill: rgba(255, 255, 255, 0.1);
+    --color-none: rgba(255, 255, 255, 0);
+  }
+
+  /* ─── Light theme ─── */
+  [data-theme='light'] {
+    /* Эталонный цвет поверхностей — один hex (тёплый бежевый). */
+    --color-base: #eeeeee;
+    /* Эталонный цвет линий/бордеров (тёмно-бордовый, как у основного текста). */
+    --color-line-base: rgb(35, 35, 35);
+
+    --color-bg: var(--color-base);
+    /* elevated/card — полупрозрачные "стеклянные" слои поверх фона (эффект
+       стекла специально не завязан на --color-base, иначе пропадёт просвет). */
+    --color-bg-elevated: color-mix(in srgb, var(--color-base), white 95%);
+    --color-bg-card: color-mix(in srgb, var(--color-none), transparent 90%);
+    --color-bg-overlay: color-mix(in srgb, var(--color-base), transparent 90%);
+    --color-border: color-mix(in srgb, var(--color-line-base), transparent 90%);
+    --color-border-hover: var(--color-bg-card);
+    --color-text-primary: var(--color-line-base);
+    --color-text-secondary: var(--color-line-base);
+    --color-text-muted: #a3a3a3;
+    --color-accent: #2563eb;
+    --color-accent-hover: #1d4ed8;
+    --color-accent-subtle: rgba(37, 99, 235, 0.1);
+    --color-pill: rgba(0, 0, 0, 0.08);
+    --color-none: rgba(0, 0, 0, 0);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Gallery grid — children fill cells */
+  .gallery-grid {
+    display: grid;
+    gap: 1rem;
+    width: 100%;
+    justify-items: stretch;
+  }
+  .gallery-grid > * {
+    margin: 0;
+    min-height: 0;
+    width: 100%;
+    min-width: 0;
+  }
+  .gallery-grid img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
+.project-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-x: auto;
+  border-radius: 1rem;
+  background: var(--color-bg-elevated);
+  padding: 1rem;
+  color: var(--color-text-primary);
+}
+
+.project-content-wrapper > * {
+  margin: 0;
+}
+
+.project-content-wrapper .gallery-grid {
+  gap: 1rem;
+  margin: 0;
+}
+
+.project-content-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+  color: inherit;
+}
+
+.project-content-wrapper th,
+.project-content-wrapper td {
+  border: 1px solid var(--color-border);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.project-content-wrapper th {
+  background: var(--color-bg-card);
+  font-weight: 600;
+}
+
+/* Gallery column variants — must be outside @layer to keep @media queries intact */
+.gallery-cols-1 { grid-template-columns: 1fr; }
+.gallery-cols-2 { grid-template-columns: 1fr; }
+.gallery-cols-3 { grid-template-columns: 1fr; }
+.gallery-cols-4 { grid-template-columns: 1fr; }
+.gallery-cols-5 { grid-template-columns: 1fr; }
+.gallery-cols-6 { grid-template-columns: 1fr; }
+@media (min-width: 768px) {
+  .gallery-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gallery-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .gallery-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .gallery-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .gallery-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}
