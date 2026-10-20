@@ -37,7 +37,7 @@ function About() {
           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-left"
         >
-          <h1 className="max-w-4xl text-left text-pretty font-[family-name:var(--font-heading)] text-4xl font-medium leading-[0.95] tracking-tight text-fg sm:text-5xl md:text-7xl lg:text-6xl">
+          <h1 className="max-w-2xl text-center text-pretty font-[family-name:var(--font-heading)] text-lg font-medium leading-[0.95] tracking-tight text-fg sm:text-5xl md:text-7xl lg:text-6xl">
             {typograph(aboutContent.heading)}
           </h1>
 

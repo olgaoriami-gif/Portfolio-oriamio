@@ -10,7 +10,7 @@ function App() {
     <>
       <Helmet>
         <title>Портфолио</title>
-        <meta name="description" content="Портфолио разработчика" />
+        <meta name="description" content="Портфолио дизайнера" />
       </Helmet>
       <Routes>
         <Route path="/" element={<Layout />}>
