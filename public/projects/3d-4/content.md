@@ -1,3 +1,10 @@
+---
+title: Обложки полисов страхования
+year: 2023-24
+category: 3d
+cover: img-cover-4.png
+---
+
 # Обложки полисов страхования
 
 ![](/projects/3d-4/img-cover-4.png)

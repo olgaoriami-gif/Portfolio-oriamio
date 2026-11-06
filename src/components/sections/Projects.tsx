@@ -6,6 +6,11 @@ import { type Category } from '@/components/ui/CategorySwitcher'
 import ProjectCard from '@/components/ui/ProjectCard'
 import ExpandedProject from '@/components/ui/ExpandedProject'
 import { portfolioItems, type PortfolioItem } from '@/lib/portfolioData'
+import {
+  fetchProjectContent,
+  projectContentFile,
+  type ParsedProject,
+} from '@/lib/projectContent'
 
 function scrollToExpandedProject(id: string) {
   const project = document.getElementById(`expanded-${id}`)
@@ -23,29 +28,29 @@ function Projects() {
   const [searchParams] = useSearchParams()
   const raw = searchParams.get('category')
   const active: Category =
-    raw === '3d' || raw === 'design-system' || raw === 'story-point'
-      ? (raw as Category)
+    raw === 'all' || raw === '3d' || raw === '2d' || raw === 'design-system'
+      ? raw
       : '3d'
 
   const [expandedId, setExpandedId] = useState<string | null>(null)
-  const [mdTitles, setMdTitles] = useState<Record<string, string>>({})
+  const [mdContent, setMdContent] = useState<Record<string, ParsedProject>>({})
 
   useEffect(() => {
     const projects = portfolioItems.filter(
       (item): item is Extract<PortfolioItem, { type: 'project' }> =>
-        item.type === 'project' && !!item.contentFile,
+        item.type === 'project',
     )
 
     projects.forEach((project) => {
-      fetch(project.contentFile!)
-        .then((res) => (res.ok ? res.text() : ''))
-        .then((text) => {
-          const match = text.match(/^#\s+(.+)$/m)
-          if (match) {
-            setMdTitles((previous) => ({ ...previous, [project.id]: match[1] }))
-          }
-        })
-        .catch(() => {})
+      fetchProjectContent(projectContentFile(project)).then((parsed) => {
+        if (parsed) {
+          setMdContent((previous) =>
+            previous[project.id]
+              ? previous
+              : { ...previous, [project.id]: parsed },
+          )
+        }
+      })
     })
   }, [])
 
@@ -57,9 +62,11 @@ function Projects() {
     () =>
       portfolioItems.filter(
         (item): item is Extract<PortfolioItem, { type: 'project' }> =>
-          item.category === active && item.type === 'project',
+          item.type === 'project' &&
+          (active === 'all' ||
+            (mdContent[item.id]?.meta.category ?? item.category) === active),
       ),
-    [active],
+    [active, mdContent],
   )
 
   const activeProject = useMemo(
@@ -79,8 +86,12 @@ function Projects() {
           className="grid grid-cols-1 gap-10 md:grid-cols-2"
         >
           {projects.map((project, index) => {
-            const title = mdTitles[project.id] || project.title
-            const isDynamic = Boolean(project.contentFile)
+            const parsed = mdContent[project.id]
+            const meta = parsed?.meta
+            const title = meta?.title ?? project.title ?? project.id
+            const image = meta?.cover ?? project.image ?? ''
+            const year = meta?.year ?? project.year?.toString()
+            const isDynamic = Boolean(parsed)
             const isExpanded = isDynamic && activeProject?.id === project.id
             const isFeature = index % 3 === 0
             const layoutClassName = isExpanded || isFeature ? 'md:col-span-2' : undefined
@@ -103,8 +114,8 @@ function Projects() {
                       id={`expanded-${project.id}`}
                       projectId={project.id}
                       title={title}
-                      image={project.image}
-                      contentFile={project.contentFile}
+                      image={image}
+                      contentFile={projectContentFile(project)}
                       borderColor={project.borderColor}
                       bgColor={project.bgColor}
                       onClose={() => setExpandedId(null)}
@@ -139,7 +150,8 @@ function Projects() {
                   >
                     <ProjectCard
                       title={title}
-                      image={project.image}
+                      image={image}
+                      year={year}
                       borderColor={project.borderColor}
                       bgColor={project.bgColor}
                       fullScreen

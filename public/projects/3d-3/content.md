@@ -1,6 +1,13 @@
+---
+title: Success or not success?
+year: 2023
+category: 3d
+cover: img-cover-3.png
+---
+
 # Success or not success?
 
-![](/projects/3d-2/img-cover-3.png)
+![](/projects/3d-3/img-cover-3.png)
 
 Описание проекта.
 

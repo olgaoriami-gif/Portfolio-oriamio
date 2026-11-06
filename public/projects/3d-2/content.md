@@ -1,3 +1,10 @@
+---
+title: Системные иллюстрации для ЛК
+year: 2023-25
+category: 3d
+cover: img-cover-2.png
+---
+
 
 :::one-columns{padding=24 pb=12 align="left"}
 

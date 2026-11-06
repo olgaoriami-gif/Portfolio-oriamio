@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link, Navigate, useParams } from 'react-router-dom'
 
 import ProjectContent from '@/components/ui/ProjectContent'
 import { portfolioItems } from '@/lib/portfolioData'
+import { projectContentFile, useProjectContent } from '@/lib/projectContent'
 
 type ProjectNavigationProps = {
   category: string
@@ -25,41 +25,42 @@ function ProjectPage() {
   const project = portfolioItems.find(
     (item) => item.type === 'project' && item.id === projectId,
   )
-  const [markdown, setMarkdown] = useState<string | null>(null)
-
-  useEffect(() => {
-    if (!project || project.type !== 'project' || !project.contentFile) return
-
-    fetch(project.contentFile, { cache: 'no-store' })
-      .then((response) => (response.ok ? response.text() : ''))
-      .then(setMarkdown)
-      .catch(() => setMarkdown(null))
-  }, [project])
+  const parsed = useProjectContent(
+    project && project.type === 'project'
+      ? projectContentFile(project)
+      : undefined,
+  )
 
   if (!project || project.type !== 'project') return <Navigate to="/" replace />
 
-  const content = markdown?.replace(/!\[.*?\]\([^)]*\)/, (match) => {
+  const title = parsed?.meta.title ?? project.title ?? project.id
+  const cover = parsed?.meta.cover ?? project.image
+  const category = parsed?.meta.category ?? project.category ?? ''
+
+  const content = parsed?.body?.replace(/!\[.*?\]\([^)]*\)/, (match) => {
     const src = match.match(/\(([^)]+)\)/)?.[1] || ''
-    return src === project.image ? '' : match
+    return src === cover ? '' : match
   })
 
   return (
     <>
       <Helmet>
-        <title>{project.title} — Портфолио</title>
-        <meta name="description" content={`Проект ${project.title}`} />
+        <title>{title} — Портфолио</title>
+        <meta name="description" content={`Проект ${title}`} />
       </Helmet>
 
       <article className="mx-auto w-full px-6 py-8 md:py-12">
         <div className="mb-6">
-          <ProjectNavigation category={project.category} />
+          <ProjectNavigation category={category} />
         </div>
 
         <div
           className="overflow-hidden rounded-2xl"
           style={{ backgroundColor: project.bgColor || 'var(--color-bg-card)' }}
         >
-          <img src={project.image} alt={project.title} className="h-auto w-full" />
+          {cover ? (
+            <img src={cover} alt={title} className="h-auto w-full" />
+          ) : null}
           <div className="py-6 md:py-10">
             {content ? (
               <ProjectContent markdown={content} />
@@ -70,7 +71,7 @@ function ProjectPage() {
         </div>
 
         <div className="mt-6">
-          <ProjectNavigation category={project.category} />
+          <ProjectNavigation category={category} />
         </div>
       </article>
     </>

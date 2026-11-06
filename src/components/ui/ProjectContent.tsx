@@ -117,17 +117,17 @@ function ProjectContent({ markdown }: ProjectContentProps) {
       rehypePlugins={[rehypeRaw]}
       components={{
         h1: ({ children }) => (
-          <h1 className="mb-4 mt-8 text-3xl font-bold text-fg first:mt-0 md:text-3xl">
+          <h1 className="mb-4 mt-8 text-2xl font-bold text-fg first:mt-0 md:text-3xl">
             {children}
           </h1>
         ),
         h2: ({ children }) => (
-          <h2 className="mb-3 mt-6 text-xl font-semibold text-fg first:mt-0 md:text-2xl">
+          <h2 className="mb-3 mt-6 text-lg font-semibold text-fg first:mt-0 md:text-2xl">
             {children}
           </h2>
         ),
         h3: ({ children }) => (
-          <h3 className="mb-2 mt-4 text-lg font-medium text-fg first:mt-0">
+          <h3 className="mb-2 mt-4 text-base font-medium text-fg first:mt-0 md:text-lg">
             {children}
           </h3>
         ),
@@ -152,7 +152,7 @@ function ProjectContent({ markdown }: ProjectContentProps) {
             )
           }
           return (
-            <p className="my-3 max-w-[900px] text-base leading-relaxed text-fg-secondary">
+            <p className="my-3 max-w-[900px] text-sm leading-relaxed text-fg-secondary md:text-base">
               {children}
             </p>
           )
@@ -167,7 +167,7 @@ function ProjectContent({ markdown }: ProjectContentProps) {
               className="h-auto w-full rounded-2xl"
             />
             {alt ? (
-              <span className="mt-2 block text-center text-sm text-fg-muted">
+              <span className="mt-2 block text-center text-xs text-fg-muted md:text-sm">
                 {alt}
               </span>
             ) : null}
@@ -187,17 +187,17 @@ function ProjectContent({ markdown }: ProjectContentProps) {
           </video>
         ),
         ul: ({ children }) => (
-          <ul className="my-4 list-inside list-disc space-y-1 text-fg-secondary">
+          <ul className="my-4 list-inside list-disc space-y-1 text-sm text-fg-secondary md:text-base">
             {children}
           </ul>
         ),
         ol: ({ children }) => (
-          <ol className="my-4 list-inside list-decimal space-y-1 text-fg-secondary">
+          <ol className="my-4 list-inside list-decimal space-y-1 text-sm text-fg-secondary md:text-base">
             {children}
           </ol>
         ),
         li: ({ children }) => (
-          <li className="text-base text-fg-secondary">{children}</li>
+          <li>{children}</li>
         ),
         blockquote: ({ children }) => (
           <blockquote className="my-4 border-l-[length:var(--border-width-accent)] border-[var(--color-border)] pl-4 italic text-fg-muted">
@@ -209,12 +209,12 @@ function ProjectContent({ markdown }: ProjectContentProps) {
           if (isBlock) {
             return (
               <pre className="my-4 overflow-x-auto rounded-lg bg-bg-elevated p-4">
-                <code className="text-sm text-fg-secondary">{children}</code>
+                <code className="text-xs text-fg-secondary md:text-sm">{children}</code>
               </pre>
             )
           }
           return (
-            <code className="rounded bg-bg-card px-1.5 py-0.5 text-sm text-fg-secondary">
+            <code className="rounded bg-bg-card px-1.5 py-0.5 text-xs text-fg-secondary md:text-sm">
               {children}
             </code>
           )

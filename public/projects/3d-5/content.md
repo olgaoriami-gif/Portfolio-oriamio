@@ -1,3 +1,10 @@
+---
+title: Dark Story Type
+year: 2022
+category: 3d
+cover: img-cover-5.png
+---
+
 
 :::one-columns{padding="24px" pb="60px" pt="60px" align="left"}
 # Dark Story Type

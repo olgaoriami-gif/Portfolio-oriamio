@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { Link, useLocation, useSearchParams } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { Menu, X, Sun, Moon } from 'lucide-react'
 import { useTheme } from '@/lib/useTheme'
+import { openAbout, useAboutState } from '@/lib/aboutStore'
 import CategorySwitcher, { type Category } from '@/components/ui/CategorySwitcher'
 
 const navLinks = [
@@ -19,11 +21,12 @@ function Header() {
 
   const raw = searchParams.get('category')
   const active: Category =
-    raw === '3d' || raw === 'design-system' || raw === 'story-point'
-      ? (raw as Category)
+    raw === 'all' || raw === '3d' || raw === '2d' || raw === 'design-system'
+      ? raw
       : '3d'
 
   const isHome = location.pathname === '/'
+  const { seen } = useAboutState()
 
   const handleCategoryChange = (cat: Category) => {
     setSearchParams({ category: cat })
@@ -33,23 +36,40 @@ function Header() {
   return (
     <header className="sticky top-0 z-50 border-b-[length:var(--border-width-none)] border-[var(--color-border)] bg-bg/80 backdrop-blur">
       <div className="mx-auto flex h-20 w-full items-center justify-between px-4">
-        <Link to="/" className="text-xl font-bold tracking-tight text-fg">
-          <span>ORIAMIO ✕</span>{' '}
-          <span className="font-[family-name:var(--font-heading)] font-[800] text-fg">Work</span>
-        </Link>
-        <div className="flex items-center gap-4">
-          <nav className="hidden items-center gap-6">
-            {navLinks.map((link) => (
-              <a
-                key={link.to}
-                href={link.to}
-                className="text-sm text-fg-secondary transition-colors hover:text-fg"
+        <div className="flex items-center gap-3">
+          <Link to="/" className="text-lg font-bold tracking-tight text-fg md:text-xl">
+            <span>ORIAMIO ✕</span>{' '}
+            <span className="font-[family-name:var(--font-heading)] font-[800] text-fg">Work</span>
+          </Link>
+          {seen && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.6 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 22 }}
+              className="group relative"
+            >
+              <button
+                type="button"
+                onClick={openAbout}
+                aria-label="Обо мне — написать мне"
+                className="block h-11 w-11 overflow-hidden rounded-full transition-transform duration-200 hover:scale-110 active:scale-95 md:h-12 md:w-12"
               >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-
+                <img
+                  src="/about/foto-avatar.png"
+                  alt="Оля Баранова"
+                  className="h-full w-full object-cover"
+                />
+              </button>
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute left-0 top-full mt-2 translate-y-1 whitespace-nowrap rounded-full border-[length:var(--border-width)] border-[var(--color-border)] bg-bg-elevated px-3 py-1.5 text-xs font-medium text-fg opacity-0 shadow-lg transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100"
+              >
+                Напиши мне!
+              </span>
+            </motion.div>
+          )}
+        </div>
+        <div className="flex items-center gap-4">
           {isHome && (
             <div className="hidden md:flex">
               <CategorySwitcher active={active} onChange={handleCategoryChange} />

@@ -1,3 +1,10 @@
+---
+title: Офисы & Агенты
+year:
+category: 3d
+cover: img-cover-6.png
+---
+
 # Офисы & Агенты
 
 ![](/projects/3d-6/img-cover-6.png)

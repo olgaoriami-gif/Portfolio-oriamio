@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { ExternalLink, X } from 'lucide-react'
 import ProjectContent from './ProjectContent'
+import { useProjectContent } from '@/lib/projectContent'
 
 type ExpandedProjectProps = {
   id?: string
@@ -24,16 +25,8 @@ function ExpandedProject({
   bgColor,
   onClose,
 }: ExpandedProjectProps) {
-  const [markdown, setMarkdown] = useState<string | null>(null)
+  const parsed = useProjectContent(contentFile)
   const containerRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!contentFile) return
-    fetch(contentFile)
-      .then((res) => (res.ok ? res.text() : ''))
-      .then(setMarkdown)
-      .catch(() => setMarkdown(null))
-  }, [contentFile])
 
   // Close when clicking outside the expanded card.
   const onCloseRef = useRef(onClose)
@@ -73,11 +66,15 @@ function ExpandedProject({
     >
       {/* Cover image */}
       <div className="relative w-full overflow-hidden rounded-2xl">
-        <img
-          src={image}
-          alt={title}
-          className="h-auto w-full"
-        />
+        {image ? (
+          <img
+            src={image}
+            alt={title}
+            className="h-auto w-full"
+          />
+        ) : (
+          <div className="h-16 w-full" />
+        )}
         {/* Close button */}
         <div className="absolute right-2 top-2 flex items-center gap-2">
           {projectId ? (
@@ -104,18 +101,18 @@ function ExpandedProject({
 
       {/* Content */}
       <div className="py-6 md:py-10">
-        {markdown ? (
-          <ProjectContent markdown={markdown.replace(/!\[.*?\]\([^)]*\)/, (match) => {
+        {parsed === undefined ? (
+          <p className="mt-4 text-fg-muted">Загрузка...</p>
+        ) : parsed?.body ? (
+          <ProjectContent markdown={parsed.body.replace(/!\[.*?\]\([^)]*\)/, (match) => {
             const src = match.match(/\(([^)]+)\)/)?.[1] || ''
             return src === image ? '' : match
           })} />
-        ) : !contentFile ? (
+        ) : (
           <>
-            <h1 className="text-2xl font-bold text-fg md:text-3xl">{title}</h1>
+            <h1 className="text-xl font-bold text-fg md:text-3xl">{title}</h1>
             <p className="mt-4 text-fg-muted">Контент ещё не добавлен</p>
           </>
-        ) : (
-          <p className="mt-4 text-fg-muted">Загрузка...</p>
         )}
       </div>
     </motion.div>

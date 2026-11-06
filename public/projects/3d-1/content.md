@@ -1,3 +1,10 @@
+---
+title: Скидки • E-mail
+year:
+category: 3d
+cover: img-cover-1.png
+---
+
 # Скидки • E-mail
 
 ![](/projects/3d-1/img-cover-1.png)
