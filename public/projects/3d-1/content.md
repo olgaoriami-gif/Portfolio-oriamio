@@ -2,6 +2,7 @@
 title: Скидки • E-mail
 year:
 category: 3d
+size: 12
 cover: img-cover-1.png
 ---
 
@@ -13,9 +14,9 @@ cover: img-cover-1.png
 
 Процедурная генерация абстрактных геометрических форм с помощью Geometry Nodes в Blender. Исследование взаимодействия математической точности и органической случайности.
 
-:::gallery{cols=1}
-![](/projects/3d-1/img-result-1.png)
-![](/projects/3d-1/img-result-2.png)
+:::gallery
+![6](/projects/3d-1/img-result-1.png)
+![6](/projects/3d-1/img-result-2.png)
 :::
 
 ## Процесс
@@ -26,10 +27,10 @@ cover: img-cover-1.png
 Начала с простых примитивов и постепенно усложняла ноды, добавляя случайность через noise-текстуры и displacement.
 :::
 
-:::gallery{cols=1}
-![](/projects/3d-1/img-result-1.png)
-![](/projects/3d-1/img-result-2.png)
-![](/projects/3d-1/img-result-2.png)
+:::gallery
+![4](/projects/3d-1/img-result-1.png)
+![4](/projects/3d-1/img-result-2.png)
+![4](/projects/3d-1/img-result-2.png)
 :::
 
 :::aside{position=right}

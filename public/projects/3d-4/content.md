@@ -2,6 +2,7 @@
 title: Обложки полисов страхования
 year: 2023-24
 category: 3d
+size: 5
 cover: img-cover-4.png
 ---
 
@@ -17,31 +18,31 @@ cover: img-cover-4.png
 
 ## Здоровье и жизнь
 
-:::gallery{cols=1}
-![](/projects/3d-4/Image%20Policy/img-result-11.png)
-![](/projects/3d-4/Image%20Policy/img-result-12.png)
+:::gallery
+![6](/projects/3d-4/Image%20Policy/img-result-11.png)
+![6](/projects/3d-4/Image%20Policy/img-result-12.png)
 :::
 
-:::gallery{cols=1}
-![](/projects/3d-4/Image%20Policy/img-result-13.png)
-![](/projects/3d-4/Image%20Policy/img-result-14.png)
-![](/projects/3d-4/Image%20Policy/img-result-16.png)
+:::gallery
+![4](/projects/3d-4/Image%20Policy/img-result-13.png)
+![4](/projects/3d-4/Image%20Policy/img-result-14.png)
+![4](/projects/3d-4/Image%20Policy/img-result-16.png)
 :::
 
-:::gallery{cols=1}
-![](/projects/3d-4/Image%20Policy/img-result-17.png)
-![](/projects/3d-4/Image%20Policy/img-result-18.png)
+:::gallery
+![6](/projects/3d-4/Image%20Policy/img-result-17.png)
+![6](/projects/3d-4/Image%20Policy/img-result-18.png)
 :::
 
-:::gallery{cols=1}
-![](/projects/3d-4/Image%20Policy/img-result-19.png)
-![](/projects/3d-4/Image%20Policy/img-result-15.png)
+:::gallery
+![6](/projects/3d-4/Image%20Policy/img-result-19.png)
+![6](/projects/3d-4/Image%20Policy/img-result-15.png)
 :::
 
-:::gallery{cols=1}
-![](/projects/3d-4/Image%20Policy/img-result-8.png)
-![](/projects/3d-4/Image%20Policy/img-result-9.png)
-![](/projects/3d-4/Image%20Policy/img-result-10.png)
+:::gallery
+![4](/projects/3d-4/Image%20Policy/img-result-8.png)
+![4](/projects/3d-4/Image%20Policy/img-result-9.png)
+![4](/projects/3d-4/Image%20Policy/img-result-10.png)
 :::
 
 ![](/projects/3d-4/img-result-48.png)
@@ -53,20 +54,20 @@ cover: img-cover-4.png
 
 ![](/projects/3d-4/img-result-1.png)
 
-:::gallery{cols=1}
-![](/projects/3d-4/Image%20Policy/img-result-21.png)
-![](/projects/3d-4/Image%20Policy/img-result-22.png)
+:::gallery
+![6](/projects/3d-4/Image%20Policy/img-result-21.png)
+![6](/projects/3d-4/Image%20Policy/img-result-22.png)
 :::
 
-:::gallery{cols=1}
-![](/projects/3d-4/Image%20Policy/img-result-23.png)
-![](/projects/3d-4/Image%20Policy/img-result-24.png)
-![](/projects/3d-4/Image%20Policy/img-result-25.png)
+:::gallery
+![4](/projects/3d-4/Image%20Policy/img-result-23.png)
+![4](/projects/3d-4/Image%20Policy/img-result-24.png)
+![4](/projects/3d-4/Image%20Policy/img-result-25.png)
 :::
 
-:::gallery{cols=1}
-![](/projects/3d-4/Image%20Policy/img-result-26.png)
-![](/projects/3d-4/Image%20Policy/img-result-27.png)
+:::gallery
+![6](/projects/3d-4/Image%20Policy/img-result-26.png)
+![6](/projects/3d-4/Image%20Policy/img-result-27.png)
 :::
 
 ::::
@@ -81,24 +82,22 @@ cover: img-cover-4.png
 В какой-то момент мне захотелось поэкспериментировать с вставкой 3D-объектов в реальные сцены. Машина наша модель "Ласточки" была создана в Blender для флоу прохождения самоосмотра при ДТП + фото улицы Москвы.
 :::
 
-:::gallery{cols=1}
-![](/projects/3d-4/Image%20Policy/img-result-41.png)
-![](/projects/3d-4/Image%20Policy/img-result-42.png)
+:::gallery
+![6](/projects/3d-4/Image%20Policy/img-result-41.png)
+![6](/projects/3d-4/Image%20Policy/img-result-42.png)
 :::
 
-:::gallery{cols=1}
-![](/projects/3d-4/Image%20Policy/img-result-43.png)
-![](/projects/3d-4/Image%20Policy/img-result-44.png)
-![](/projects/3d-4/Image%20Policy/img-result-45.png)
+:::gallery
+![4](/projects/3d-4/Image%20Policy/img-result-43.png)
+![4](/projects/3d-4/Image%20Policy/img-result-44.png)
+![4](/projects/3d-4/Image%20Policy/img-result-45.png)
 :::
 
-:::gallery{cols=1}
 ![](/projects/3d-4/Image%20Policy/img-result-46.png)
-:::
 
-:::gallery{cols=1}
-![](/projects/3d-4/img-result-2.png)
-![](/projects/3d-4/img-result-3.png)
+:::gallery
+![6](/projects/3d-4/img-result-2.png)
+![6](/projects/3d-4/img-result-3.png)
 :::
 
 ::::
@@ -107,10 +106,10 @@ cover: img-cover-4.png
 
 ## Животные
 
-:::gallery{cols=1}
-![](/projects/3d-4/Image%20Policy/img-result-5.png)
-![](/projects/3d-4/Image%20Policy/img-result-6.png)
-![](/projects/3d-4/Image%20Policy/img-result-7.png)
+:::gallery
+![4](/projects/3d-4/Image%20Policy/img-result-5.png)
+![4](/projects/3d-4/Image%20Policy/img-result-6.png)
+![4](/projects/3d-4/Image%20Policy/img-result-7.png)
 :::
 ::::
 
@@ -120,9 +119,9 @@ cover: img-cover-4.png
 
 ![](/projects/3d-4/img-result-49.png)
 
-:::gallery{cols=1}
-![](/projects/3d-4/Image%20Policy/img-result-29.png)
-![](/projects/3d-4/Image%20Policy/img-result-30.png)
+:::gallery
+![6](/projects/3d-4/Image%20Policy/img-result-29.png)
+![6](/projects/3d-4/Image%20Policy/img-result-30.png)
 :::
 
 ::::
@@ -137,19 +136,19 @@ cover: img-cover-4.png
 
 ### Здоровье
 
-:::gallery{cols=1}
-![](/projects/3d-4/Image%20Policy/img-result-32.png)
-![](/projects/3d-4/Image%20Policy/img-result-33.png)
-![](/projects/3d-4/Image%20Policy/img-result-34.png)
-![](/projects/3d-4/Image%20Policy/img-result-35.png)
+:::gallery
+![3](/projects/3d-4/Image%20Policy/img-result-32.png)
+![3](/projects/3d-4/Image%20Policy/img-result-33.png)
+![3](/projects/3d-4/Image%20Policy/img-result-34.png)
+![3](/projects/3d-4/Image%20Policy/img-result-35.png)
 :::
 
 ### Имущество
 
-:::gallery{cols=1}
-![](/projects/3d-4/Image%20Policy/img-result-36.png)
-![](/projects/3d-4/Image%20Policy/img-result-37.png)
-![](/projects/3d-4/Image%20Policy/img-result-38.png)
+:::gallery
+![4](/projects/3d-4/Image%20Policy/img-result-36.png)
+![4](/projects/3d-4/Image%20Policy/img-result-37.png)
+![4](/projects/3d-4/Image%20Policy/img-result-38.png)
 :::
 
 ### Ипотека
@@ -174,13 +173,13 @@ cover: img-cover-4.png
 
 ![](/projects/3d-4/img-result-56.png)
 
-:::gallery{cols=1}
-![](/projects/3d-4/img-result-52.png)
-![](/projects/3d-4/img-result-53.png)
+:::gallery
+![6](/projects/3d-4/img-result-52.png)
+![6](/projects/3d-4/img-result-53.png)
 :::
 
-:::gallery{cols=1}
-![](/projects/3d-4/img-result-54.png)
-![](/projects/3d-4/img-result-55.png)
+:::gallery
+![6](/projects/3d-4/img-result-54.png)
+![6](/projects/3d-4/img-result-55.png)
 :::
 ::::

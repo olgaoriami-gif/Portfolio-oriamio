@@ -34,7 +34,4 @@ export const portfolioItems: PortfolioItem[] = [
   // ── Design System ───────────────────────────────────
   { type: 'project', id: 'ds-1', category: 'design-system' },
   { type: 'project', id: 'ds-2', category: 'design-system' },
-  { type: 'project', id: 'ds-3', category: 'design-system' },
-  { type: 'project', id: 'ds-4', category: 'design-system' },
-  { type: 'project', id: 'ds-5', category: 'design-system' },
 ]

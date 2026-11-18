@@ -181,17 +181,37 @@
   font-weight: 600;
 }
 
-/* Gallery column variants — must be outside @layer to keep @media queries intact */
-.gallery-cols-1 { grid-template-columns: 1fr; }
-.gallery-cols-2 { grid-template-columns: 1fr; }
-.gallery-cols-3 { grid-template-columns: 1fr; }
-.gallery-cols-4 { grid-template-columns: 1fr; }
-.gallery-cols-5 { grid-template-columns: 1fr; }
-.gallery-cols-6 { grid-template-columns: 1fr; }
+/* 12-column gallery grid — items place via `grid-column: span N` or --g-span.
+   Must be outside @layer to keep @media queries intact */
+.gallery-12 { grid-template-columns: 1fr; }
+.gallery-12 > * { grid-column: 1 / -1; }
+
+/* Project content: edge margins of the first/last item don't add to the
+   container's vertical padding */
+.project-content > :first-child { margin-top: 0; }
+.project-content > :last-child { margin-bottom: 0; }
+
+/* `---` spacer height: --sp units of the spacing scale (×0.25rem). Mobile
+   gets half of it, or --sp-m when set. Explicit-unit values (--- (60px))
+   are applied inline and don't scale */
+.project-content hr { height: calc(var(--sp-m, var(--sp, 15) * 0.5) * 0.25rem); }
+
+/* `---` is an exact spacer: margins of neighboring items and the
+   parent's edge padding (py-6 / md:py-10 — keep --pc-py in sync) fold in */
+.project-content { --pc-py: 1.5rem; }
+.project-content > *:has(+ hr) { margin-bottom: 0; }
+.project-content > hr + * { margin-top: 0; }
+.project-content > hr:first-child { margin-top: calc(-1 * var(--pc-py)); }
+.project-content > hr:last-child { margin-bottom: calc(-1 * var(--pc-py)); }
+
 @media (min-width: 768px) {
-  .gallery-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .gallery-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .gallery-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .gallery-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-  .gallery-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .gallery-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+
+  .project-content { --pc-py: 2.5rem; }
+  .project-content hr { height: calc(var(--sp, 15) * 0.25rem); }
+
+  /* Project content: direct text children default to a centered 8-col span */
+  .project-content > :is(h1, h2, h3, h4, h5, h6, p, ul, ol, dl, blockquote, pre, hr, table) {
+    grid-column: 3 / span 8;
+  }
 }

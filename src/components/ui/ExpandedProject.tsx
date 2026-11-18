@@ -105,7 +105,7 @@ function ExpandedProject({
           <p className="mt-4 text-fg-muted">Загрузка...</p>
         ) : parsed?.body ? (
           <ProjectContent markdown={parsed.body.replace(/!\[.*?\]\([^)]*\)/, (match) => {
-            const src = match.match(/\(([^)]+)\)/)?.[1] || ''
+            const src = match.match(/\(<?([^)>]+?)>?\)/)?.[1] || ''
             return src === image ? '' : match
           })} />
         ) : (

@@ -8,12 +8,12 @@ export type ProjectCardProps = {
   image: string
   /** Project year — rendered as a badge in the top-right corner */
   year?: string
+  /** Card width in grid columns (1–12) — also sets its minimum height */
+  span?: number
   /** Custom border color, e.g. 'border-red-500' or any CSS color via style */
   borderColor?: string
   /** Custom background color */
   bgColor?: string
-  /** Render as a large viewport-height feature card */
-  fullScreen?: boolean
   /** Whether the card opens project content */
   interactive?: boolean
   /** Whether the card has a content page and gets the stack hover effect */
@@ -22,13 +22,32 @@ export type ProjectCardProps = {
   className?: string
 }
 
+/**
+ * Minimum height per column span (wider card → taller floor).
+ * Within a grid row all cards stretch to the tallest one.
+ */
+const spanMinHeights: Record<number, string> = {
+  1: 'min-h-[20vh] md:min-h-[24vh]',
+  2: 'min-h-[24vh] md:min-h-[28vh]',
+  3: 'min-h-[30vh] md:min-h-[36vh]',
+  4: 'min-h-[35vh] md:min-h-[40vh]',
+  5: 'min-h-[40vh] md:min-h-[48vh]',
+  6: 'min-h-[45vh] md:min-h-[55vh]',
+  7: 'min-h-[48vh] md:min-h-[58vh]',
+  8: 'min-h-[50vh] md:min-h-[60vh]',
+  9: 'min-h-[53vh] md:min-h-[63vh]',
+  10: 'min-h-[55vh] md:min-h-[65vh]',
+  11: 'min-h-[58vh] md:min-h-[68vh]',
+  12: 'min-h-[60vh] md:min-h-[70vh] min-[1921px]:min-h-[60vh]',
+}
+
 function ProjectCard({
   title,
   image,
   year,
+  span = 6,
   borderColor,
   bgColor,
-  fullScreen = false,
   interactive = false,
   hasContent = false,
   className,
@@ -49,9 +68,9 @@ function ProjectCard({
     <motion.div
       whileHover={{ y: -6 }}
       transition={{ duration: 0.25 }}
-      className={cn('group', className)}
+      className={cn('group h-full', className)}
     >
-      <div className="relative">
+      <div className="relative h-full">
         {hasContent &&
           stackLayers.map((layer, index) => (
             <div
@@ -65,8 +84,8 @@ function ProjectCard({
           ))}
         <div
           className={cn(
-            'relative overflow-hidden rounded-[24px] bg-bg-card',
-            fullScreen && 'h-[70vh] min-h-0 aspect-auto min-[1921px]:h-[60vh]',
+            'relative h-full overflow-hidden rounded-[24px] bg-bg-card',
+            spanMinHeights[Math.min(Math.max(Math.round(span), 1), 12)],
           )}
           style={cardStyle}
         >
@@ -76,10 +95,7 @@ function ProjectCard({
               alt={title}
               loading="lazy"
               decoding="async"
-              className={cn(
-                'h-full w-full object-cover transition-transform duration-700 group-hover:scale-105',
-                fullScreen && 'absolute inset-0',
-              )}
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           ) : null}
           {year ? (

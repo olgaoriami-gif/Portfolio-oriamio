@@ -1,17 +1,10 @@
 import { useState } from 'react'
-import { Link, useLocation, useSearchParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Menu, X, Sun, Moon } from 'lucide-react'
 import { useTheme } from '@/lib/useTheme'
 import { openAbout, useAboutState } from '@/lib/aboutStore'
 import CategorySwitcher, { type Category } from '@/components/ui/CategorySwitcher'
-
-const navLinks = [
-  { label: 'Главная', to: '/' },
-  { label: 'Проекты', to: '#projects' },
-  { label: 'Обо мне', to: '#about' },
-  { label: 'Контакты', to: '#contact' },
-]
 
 function Header() {
   const [open, setOpen] = useState(false)
@@ -26,7 +19,27 @@ function Header() {
       : '3d'
 
   const isHome = location.pathname === '/'
+  const navigate = useNavigate()
   const { seen } = useAboutState()
+
+  const menuItemClass = 'text-left text-sm text-fg-secondary hover:text-fg'
+
+  const goProjects = () => {
+    setOpen(false)
+    const scroll = () =>
+      document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
+    if (isHome) {
+      scroll()
+    } else {
+      navigate('/')
+      setTimeout(scroll, 100)
+    }
+  }
+
+  const goAbout = () => {
+    openAbout()
+    setOpen(false)
+  }
 
   const handleCategoryChange = (cat: Category) => {
     setSearchParams({ category: cat })
@@ -38,8 +51,7 @@ function Header() {
       <div className="mx-auto flex h-20 w-full items-center justify-between px-4">
         <div className="flex items-center gap-3">
           <Link to="/" className="text-lg font-bold tracking-tight text-fg md:text-xl">
-            <span>ORIAMIO ✕</span>{' '}
-            <span className="font-[family-name:var(--font-heading)] font-[800] text-fg">Work</span>
+            <span>ORIAMIO</span>
           </Link>
           {seen && (
             <motion.div
@@ -100,16 +112,18 @@ function Header() {
       {open && (
         <div className="border-t-[length:var(--border-width)] border-[var(--color-border)] px-4 py-4 md:hidden">
           <nav className="flex flex-col gap-4">
-            {navLinks.map((link) => (
-              <a
-                key={link.to}
-                href={link.to}
-                className="text-sm text-fg-secondary hover:text-fg"
-                onClick={() => setOpen(false)}
-              >
-                {link.label}
-              </a>
-            ))}
+            <Link to="/" className={menuItemClass} onClick={() => setOpen(false)}>
+              Главная
+            </Link>
+            <button type="button" className={menuItemClass} onClick={goProjects}>
+              Проекты
+            </button>
+            <button type="button" className={menuItemClass} onClick={goAbout}>
+              Обо мне
+            </button>
+            <button type="button" className={menuItemClass} onClick={goAbout}>
+              Контакты
+            </button>
           </nav>
           {isHome && (
             <div className="mt-4 flex justify-center">

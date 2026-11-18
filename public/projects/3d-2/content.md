@@ -2,6 +2,7 @@
 title: Системные иллюстрации для ЛК
 year: 2023-25
 category: 3d
+size: 4
 cover: img-cover-2.png
 ---
 
@@ -19,70 +20,70 @@ cover: img-cover-2.png
 Что такое страхование с точки зрения пользователя? Базовая потребность любого живого существа — безопасность. Только обретя уверенность в том, что у тебя есть дополнительная подстраховка, можно перейти на новый уровень восприятия мира: рост, карьера, семья и так далее.
 :::
 
-:::gallery{cols=1}
-![Basic-Grey-light](/projects/3d-2/img-result-1-1.png)
-![Basic-Grey-dark](/projects/3d-2/img-result-1-2.png)
-![Basic-Plastic Glass Red light](/projects/3d-2/img-result-1-3.png)
+:::gallery
+![4|Basic-Grey-light](/projects/3d-2/img-result-1-1.png)
+![4|Basic-Grey-dark](/projects/3d-2/img-result-1-2.png)
+![4|Basic-Plastic Glass Red light](/projects/3d-2/img-result-1-3.png)
 :::
 
-:::gallery{cols=1}
-![Basic-Plastic Glass Red dark](/projects/3d-2/img-result-1-4.png)
-![Basic-Plastic Glass-transparent](/projects/3d-2/img-result-1-5.png)
-![Basic-Plastic Glass-dispersion](/projects/3d-2/img-result-1-6.png)
+:::gallery
+![4|Basic-Plastic Glass Red dark](/projects/3d-2/img-result-1-4.png)
+![4|Basic-Plastic Glass-transparent](/projects/3d-2/img-result-1-5.png)
+![4|Basic-Plastic Glass-dispersion](/projects/3d-2/img-result-1-6.png)
 :::
 
 ![](/projects/3d-2/img-result-3.png)
 
 ![](/projects/3d-2/img-result-4.png)
 
-:::gallery{cols=1}
-![](/projects/3d-2/img-result-5-1.png)
-![](/projects/3d-2/img-result-5-2.png)
-![](/projects/3d-2/img-result-5-3.png)
+:::gallery
+![4](/projects/3d-2/img-result-5-1.png)
+![4](/projects/3d-2/img-result-5-2.png)
+![4](/projects/3d-2/img-result-5-3.png)
 :::
 
-:::gallery{cols=1}
-![](/projects/3d-2/img-result-6-1.png)
-![](/projects/3d-2/img-result-6-2.png)
-![](/projects/3d-2/img-result-6-3.png)
+:::gallery
+![4](/projects/3d-2/img-result-6-1.png)
+![4](/projects/3d-2/img-result-6-2.png)
+![4](/projects/3d-2/img-result-6-3.png)
 :::
 
 :::one-columns{padding=24 pb=12 pt=12 align="left"}
 ## Что-то пошло не так
 :::
 
-:::gallery{cols=1}
-![](/projects/3d-2/img-result-7.png)
-![](/projects/3d-2/img-result-8.png)
+:::gallery
+![6](/projects/3d-2/img-result-7.png)
+![6](/projects/3d-2/img-result-8.png)
 :::
 
-:::gallery{cols=1}
-![](/projects/3d-2/img-result-9.png)
-![](/projects/3d-2/img-result-10.png)
-![](/projects/3d-2/img-result-11.png)
+:::gallery
+![4](/projects/3d-2/img-result-9.png)
+![4](/projects/3d-2/img-result-10.png)
+![4](/projects/3d-2/img-result-11.png)
 :::
 
 :::one-columns{padding=24 pb=12 pt=12 align="left"}
 ## Работа с полисами
 :::
 
-:::gallery{cols=1}
-![Продлить полис](/projects/3d-2/img-result-12.png)
-![Активировать полис](/projects/3d-2/img-result-13.png)
+:::gallery
+![6|Продлить полис](/projects/3d-2/img-result-12.png)
+![6|Активировать полис](/projects/3d-2/img-result-13.png)
 :::
 
-:::gallery{cols=1}
-![](/projects/3d-2/img-result-14.png)
-![](/projects/3d-2/img-result-16.png)
+:::gallery
+![6](/projects/3d-2/img-result-14.png)
+![6](/projects/3d-2/img-result-16.png)
 :::
 
 ![](/projects/3d-2/img-result-15.png)
 
 ![](/projects/3d-2/img-result-18.png)
 
-:::gallery{cols=1}
-![](/projects/3d-2/img-result-17.png)
-![](/projects/3d-2/img-result-19.png)
+:::gallery
+![6](/projects/3d-2/img-result-17.png)
+![6](/projects/3d-2/img-result-19.png)
 :::
 
 :::two-columns

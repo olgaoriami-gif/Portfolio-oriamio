@@ -2,6 +2,7 @@
 title: Success or not success?
 year: 2023
 category: 3d
+size: 8
 cover: img-cover-3.png
 ---
 
@@ -11,16 +12,16 @@ cover: img-cover-3.png
 
 Описание проекта.
 
-:::gallery{cols=1}
-![](/projects/3d-3/img-result-1.png)
-![](/projects/3d-3/img-result-2.png)
+:::gallery
+![6](/projects/3d-3/img-result-1.png)
+![6](/projects/3d-3/img-result-2.png)
 :::
 
 ![](/projects/3d-3/img-result-3.png)
 
-:::gallery{cols=1}
-![](/projects/3d-3/img-result-4.png)
-![](/projects/3d-3/img-result-5.png)
+:::gallery
+![6](/projects/3d-3/img-result-4.png)
+![6](/projects/3d-3/img-result-5.png)
 :::
 
 <video autoplay muted loop playsinline style="width: 60%; margin: 24px auto">

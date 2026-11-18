@@ -12,6 +12,21 @@ import {
   type ParsedProject,
 } from '@/lib/projectContent'
 
+const spanClasses: Record<number, string> = {
+  1: 'md:col-span-1',
+  2: 'md:col-span-2',
+  3: 'md:col-span-3',
+  4: 'md:col-span-4',
+  5: 'md:col-span-5',
+  6: 'md:col-span-6',
+  7: 'md:col-span-7',
+  8: 'md:col-span-8',
+  9: 'md:col-span-9',
+  10: 'md:col-span-10',
+  11: 'md:col-span-11',
+  12: 'md:col-span-12',
+}
+
 function scrollToExpandedProject(id: string) {
   const project = document.getElementById(`expanded-${id}`)
   const headerHeight = document.querySelector('header')?.getBoundingClientRect().height ?? 0
@@ -83,7 +98,7 @@ function Projects() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="grid grid-cols-1 gap-10 md:grid-cols-2"
+          className="grid grid-cols-1 gap-10 md:grid-cols-12"
         >
           {projects.map((project, index) => {
             const parsed = mdContent[project.id]
@@ -91,10 +106,12 @@ function Projects() {
             const title = meta?.title ?? project.title ?? project.id
             const image = meta?.cover ?? project.image ?? ''
             const year = meta?.year ?? project.year?.toString()
+            const span = meta?.span ?? 6
             const isDynamic = Boolean(parsed)
             const isExpanded = isDynamic && activeProject?.id === project.id
-            const isFeature = index % 3 === 0
-            const layoutClassName = isExpanded || isFeature ? 'md:col-span-2' : undefined
+            const layoutClassName = isExpanded
+              ? 'md:col-span-12'
+              : spanClasses[span]
 
             return (
               <AnimatePresence key={project.id} mode="wait" initial={false}>
@@ -152,9 +169,9 @@ function Projects() {
                       title={title}
                       image={image}
                       year={year}
+                      span={span}
                       borderColor={project.borderColor}
                       bgColor={project.bgColor}
-                      fullScreen
                       interactive={isDynamic}
                       hasContent={isDynamic}
                     />

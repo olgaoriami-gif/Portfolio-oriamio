@@ -2,6 +2,7 @@
 title: Dark Story Type
 year: 2022
 category: 3d
+size: 7
 cover: img-cover-5.png
 ---
 
@@ -19,10 +20,10 @@ cover: img-cover-5.png
 
 ![](/projects/3d-5/img-result-4.png)
 
-:::gallery{cols=1}
-![](/projects/3d-5/img-result-5-1.png)
-![](/projects/3d-5/img-result-5-2.png)
-![](/projects/3d-5/img-result-5-3.png)
+:::gallery
+![4](/projects/3d-5/img-result-5-1.png)
+![4](/projects/3d-5/img-result-5-2.png)
+![4](/projects/3d-5/img-result-5-3.png)
 :::
 
 ![](/projects/3d-5/img-result-2.png)
@@ -43,10 +44,10 @@ cover: img-cover-5.png
 
 ![](/projects/3d-5/img-result-14.png)
 
-:::gallery{cols=1}
+:::gallery
 
-![](/projects/3d-5/img-result-11.png)
-![](/projects/3d-5/img-result-12.png)
-![](/projects/3d-5/img-result-13.png)
+![4](/projects/3d-5/img-result-11.png)
+![4](/projects/3d-5/img-result-12.png)
+![4](/projects/3d-5/img-result-13.png)
 
 :::

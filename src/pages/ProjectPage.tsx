@@ -38,7 +38,7 @@ function ProjectPage() {
   const category = parsed?.meta.category ?? project.category ?? ''
 
   const content = parsed?.body?.replace(/!\[.*?\]\([^)]*\)/, (match) => {
-    const src = match.match(/\(([^)]+)\)/)?.[1] || ''
+    const src = match.match(/\(<?([^)>]+?)>?\)/)?.[1] || ''
     return src === cover ? '' : match
   })
 
