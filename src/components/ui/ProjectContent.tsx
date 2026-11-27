@@ -98,17 +98,11 @@ function equalizeGrid(grid: HTMLElement) {
     if (cell) cells.push(cell)
   }
 
-  for (const { item, cell, media } of cells) {
+  for (const { item, media } of cells) {
     item.style.height = ''
-    item.style.display = ''
-    item.style.flexDirection = ''
-    cell.style.flex = ''
-    cell.style.minHeight = ''
-    cell.style.display = ''
-    cell.style.flexDirection = ''
-    media.style.flex = ''
-    media.style.minHeight = ''
+    media.style.height = ''
     media.style.objectFit = ''
+    media.style.width = ''
   }
 
   const rows = new Map<number, MediaCell[]>()
@@ -137,23 +131,12 @@ function equalizeGrid(grid: HTMLElement) {
       }
     }
     if (!target) continue
-    for (const { item, cell, media } of rowCells) {
-      if (media === item) {
-        item.style.height = `${target}px`
-        item.style.objectFit = 'cover'
-        item.style.width = '100%'
-        continue
-      }
-      item.style.height = `${target}px`
-      item.style.display = 'flex'
-      item.style.flexDirection = 'column'
-      cell.style.flex = '1 1 0'
-      cell.style.minHeight = '0'
-      cell.style.display = 'flex'
-      cell.style.flexDirection = 'column'
-      media.style.flex = '1 1 0'
-      media.style.minHeight = '0'
+    // Equalize the media itself, not its wrapper — captions below don't
+    // eat into the image height and can't throw the row off
+    for (const { media } of rowCells) {
+      media.style.height = `${target}px`
       media.style.objectFit = 'cover'
+      media.style.width = '100%'
     }
   }
 }

@@ -16,15 +16,15 @@ cover: img-cover-2.png
 :::
 
 :::gallery
-![4|Basic-Grey-light](/projects/3d-2/img-result-1-1.png)
-![4|Basic-Grey-dark](/projects/3d-2/img-result-1-2.png)
-![4|Basic-Plastic Glass Red light](/projects/3d-2/img-result-1-3.png)
+![4/4|Basic-Grey-light](/projects/3d-2/img-result-1-1.png)
+![4/4|Basic-Grey-dark](/projects/3d-2/img-result-1-2.png)
+![4/4|Basic-Plastic Glass Red light](/projects/3d-2/img-result-1-3.png)
 :::
 
 :::gallery
-![4|Basic-Plastic Glass Red dark](/projects/3d-2/img-result-1-4.png)
-![4|Basic-Plastic Glass-transparent](/projects/3d-2/img-result-1-5.png)
-![4|Basic-Plastic Glass-dispersion](/projects/3d-2/img-result-1-6.png)
+![4/4|Basic-Plastic Glass Red dark](/projects/3d-2/img-result-1-4.png)
+![4/4|Basic-Plastic Glass-transparent](/projects/3d-2/img-result-1-5.png)
+![4/4|Basic-Plastic Glass-dispersion](/projects/3d-2/img-result-1-6.png)
 :::
 
 ![](/projects/3d-2/img-result-3.png)
@@ -32,15 +32,15 @@ cover: img-cover-2.png
 ![](/projects/3d-2/img-result-4.png)
 
 :::gallery
-![4](/projects/3d-2/img-result-5-1.png)
-![4](/projects/3d-2/img-result-5-2.png)
-![4](/projects/3d-2/img-result-5-3.png)
+![4/6](/projects/3d-2/img-result-5-1.png)
+![4/6](/projects/3d-2/img-result-5-2.png)
+![4/12](/projects/3d-2/img-result-5-3.png)
 :::
 
 :::gallery
-![4](/projects/3d-2/img-result-6-1.png)
-![4](/projects/3d-2/img-result-6-2.png)
-![4](/projects/3d-2/img-result-6-3.png)
+![4/6](/projects/3d-2/img-result-6-1.png)
+![4/6](/projects/3d-2/img-result-6-2.png)
+![4/12](/projects/3d-2/img-result-6-3.png)
 :::
 
 :::one-columns{padding=24 pb=12 pt=12 align="left"}
