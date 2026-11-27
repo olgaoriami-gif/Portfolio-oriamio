@@ -204,6 +204,13 @@
 .project-content > hr:first-child { margin-top: calc(-1 * var(--pc-py)); }
 .project-content > hr:last-child { margin-bottom: calc(-1 * var(--pc-py)); }
 
+/* Below md there is no 12-col template, so inline `grid-column: span N`
+   would create implicit columns and overflow the page — stack everything */
+@media (max-width: 767.98px) {
+  .gallery-12 { grid-template-columns: 1fr; }
+  .gallery-12 > * { grid-column: auto !important; }
+}
+
 @media (min-width: 768px) {
   .gallery-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
 
