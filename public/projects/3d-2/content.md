@@ -48,7 +48,9 @@ cover: img-cover-2.png
 :::
 
 :::one-columns{padding=24 pb=12 pt=12 align="left"}
+
 ## Что-то пошло не так
+
 :::
 
 :::gallery
@@ -63,7 +65,9 @@ cover: img-cover-2.png
 :::
 
 :::one-columns{padding=24 pb=12 pt=12 align="left"}
+
 ## Работа с полисами
+
 :::
 
 :::gallery
