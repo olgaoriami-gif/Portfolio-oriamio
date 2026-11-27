@@ -21,6 +21,7 @@ type DirectiveNode = Parent & {
 /**
  * Parses the alt text of an image as a grid span spec:
  *   ![6](src)            → span 6 (of 12), no caption
+ *   ![6/4](src)          → span 6 desktop, span 4 on mobile
  *   ![6@4](src)          → span 6 starting at column line 4
  *   ![4@center](src)     → span 4 centered in the 12-col grid
  *   ![6|Caption](src)    → span 6 with caption
@@ -30,20 +31,26 @@ type DirectiveNode = Parent & {
 function parseImageAlt(alt?: string | null): {
   span?: number
   start?: number
+  mobile?: number
   caption?: string
 } {
   if (!alt) return {}
   const m = alt.match(
-    /^([1-9]|1[0-2])(?:@([1-9]|1[0-3]|center|c))?\s*(?:\|\s*([\s\S]*))?$/,
+    /^([1-9]|1[0-2])(?:\/([1-9]|1[0-2]))?(?:@([1-9]|1[0-3]|center|c))?\s*(?:\|\s*([\s\S]*))?$/,
   )
   if (!m) return { caption: alt }
   const start =
-    m[2] == null
+    m[3] == null
       ? undefined
-      : m[2] === 'center' || m[2] === 'c'
+      : m[3] === 'center' || m[3] === 'c'
         ? Math.floor((12 - Number(m[1])) / 2) + 1
-        : Number(m[2])
-  return { span: Number(m[1]), start, caption: m[3]?.trim() || undefined }
+        : Number(m[3])
+  return {
+    span: Number(m[1]),
+    mobile: m[2] ? Number(m[2]) : undefined,
+    start,
+    caption: m[4]?.trim() || undefined,
+  }
 }
 
 /** grid-column value for an item: explicit start/span or the container default */
@@ -223,7 +230,7 @@ function remarkDirectiveLayout() {
  * - Regular paragraphs — text blocks sit on the 12-col grid, centered 8-span by default (md+)
  * - **bold**, *italic*
  * - ![alt](image-url) — renders as full-width image
- * - ![N](url) / ![N@start](url) / ![N|caption](url) — image taking N of 12 grid columns, optionally starting at column line N (inside galleries); ![N@center] centers it
+ * - ![N](url) / ![N@start](url) / ![N|caption](url) — image taking N of 12 grid columns, optionally starting at column line N (inside galleries); ![N@center] centers it; ![N/M] uses span M on mobile (default: full width)
  * - Multiple images in a row — auto gallery grid (12-col, equal spans by default)
  * - - bullet lists
  * - > blockquotes
@@ -333,11 +340,14 @@ function ProjectContent({ markdown }: ProjectContentProps) {
           if (images && images.length === 1) {
             const alt = (images[0] as { properties?: { alt?: string } })
               .properties?.alt
-            const { span, start } = parseImageAlt(alt)
+            const { span, start, mobile } = parseImageAlt(alt)
             return (
               <div
                 className="my-6 overflow-hidden rounded-2xl"
-                style={{ gridColumn: gridColumnFor(span, start) }}
+                style={{
+                  gridColumn: gridColumnFor(span, start),
+                  ...(mobile ? { '--gc-m': `span ${mobile}` } : {}),
+                } as CSSProperties}
               >
                 {children}
               </div>
@@ -350,12 +360,15 @@ function ProjectContent({ markdown }: ProjectContentProps) {
           )
         },
         img: ({ src, alt }) => {
-          const { span, start, caption } = parseImageAlt(alt)
+          const { span, start, mobile, caption } = parseImageAlt(alt)
           return (
             <div
               className="m-0"
               data-media
-              style={{ gridColumn: gridColumnFor(span, start) }}
+              style={{
+                gridColumn: gridColumnFor(span, start),
+                ...(mobile ? { '--gc-m': `span ${mobile}` } : {}),
+              } as CSSProperties}
             >
               <img
                 src={src}
