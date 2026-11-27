@@ -8,7 +8,7 @@ const aboutContent = {
   heading: 'Оля Баранова',
   description:
     'Я работаю с графикой и дизайн-системами. Любовь к глубине и деталям — именно из этого рождаются мои работы. Для меня важны выразительность, система и баланс между формой и функцией',
-  avatar: '/about/foto-avatar.png',
+  avatar: `${import.meta.env.BASE_URL}about/foto-avatar.png`,
 }
 
 // TODO: подставь реальные контакты

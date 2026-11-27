@@ -79,6 +79,9 @@ function portfolioDrafts(): Plugin {
 }
 
 export default defineConfig({
+  // GitHub Pages project site: https://olgaoriami-gif.github.io/Portfolio-oriamio/
+  // When a custom domain is connected, change base to '/'.
+  base: '/Portfolio-oriamio/',
   plugins: [react(), portfolioDrafts()],
   server: {
     watch: {

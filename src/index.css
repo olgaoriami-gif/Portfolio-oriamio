@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Oriamio';
-  src: url('/fonts/Oriamio-Regular.ttf') format('truetype');
+  src: url('./fonts/Oriamio-Regular.ttf') format('truetype');
   font-style: normal;
   font-weight: 400;
   font-display: swap;

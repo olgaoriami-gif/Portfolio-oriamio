@@ -33,9 +33,12 @@ export type ParsedProject = {
 
 type HasContentFile = { id: string; contentFile?: string }
 
-/** Path to a project's markdown file. Defaults to /projects/<id>/content.md */
+/** Site base path — "/" in dev, "/Portfolio-oriamio/" in the Pages build */
+const BASE_URL = import.meta.env.BASE_URL
+
+/** Path to a project's markdown file. Defaults to <base>/projects/<id>/content.md */
 export function projectContentFile(item: HasContentFile) {
-  return item.contentFile ?? `/projects/${item.id}/content.md`
+  return item.contentFile ?? `${BASE_URL}projects/${item.id}/content.md`
 }
 
 function parseFrontmatter(raw: string): {
@@ -75,7 +78,8 @@ function firstHeading(body: string): string | undefined {
 
 /** Resolves an asset path relative to the content.md directory */
 function resolveAssetPath(src: string, contentFile: string): string {
-  if (src.startsWith('/') || /^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(src)) return src
+  if (/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(src)) return src
+  if (src.startsWith('/')) return `${BASE_URL}${src.slice(1)}`
   const dir = contentFile.slice(0, contentFile.lastIndexOf('/'))
   return `${dir}/${src}`
 }
@@ -92,6 +96,15 @@ function resolveBodyImages(body: string, contentFile: string): string {
     const resolved = resolveAssetPath(src, contentFile)
     return `![${alt}](${/\s/.test(resolved) ? `<${resolved}>` : resolved})`
   })
+}
+
+/**
+ * Rewrites root-absolute src/href in raw HTML (e.g. <source src="/projects/...">)
+ * to include the site base path.
+ */
+function resolveRootAssetUrls(body: string): string {
+  if (BASE_URL === '/') return body
+  return body.replace(/(src|href)=(["'])\/(?!\/)/g, `$1=$2${BASE_URL}`)
 }
 
 /** Normalizes a frontmatter category value: "2D", "ds", "design system" → '2d' | '3d' | 'design-system' */
@@ -140,7 +153,7 @@ export function fetchProjectContent(
       .then((raw) => {
         if (raw == null) return null
         const { attrs, body: rawBody } = parseFrontmatter(raw)
-        const body = resolveBodyImages(rawBody, contentFile)
+        const body = resolveRootAssetUrls(resolveBodyImages(rawBody, contentFile))
         const cover =
           attrs.cover || firstImageSrc(body)
         return {
