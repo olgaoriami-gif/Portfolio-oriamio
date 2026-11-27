@@ -53,9 +53,9 @@ cover: img-cover-2.png
 :::
 
 :::gallery
-![4](/projects/3d-2/img-result-9.png)
-![4](/projects/3d-2/img-result-10.png)
-![4](/projects/3d-2/img-result-11.png)
+![4/6](/projects/3d-2/img-result-9.png)
+![4/6](/projects/3d-2/img-result-10.png)
+![4/12](/projects/3d-2/img-result-11.png)
 :::
 
 :::one-columns{padding=24 pb=12 pt=12 align="left"}
@@ -68,8 +68,8 @@ cover: img-cover-2.png
 :::
 
 :::gallery
-![6](/projects/3d-2/img-result-14.png)
-![6](/projects/3d-2/img-result-16.png)
+![6/6](/projects/3d-2/img-result-14.png)
+![6/6](/projects/3d-2/img-result-16.png)
 :::
 
 ![](/projects/3d-2/img-result-15.png)
