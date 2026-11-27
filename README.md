@@ -308,3 +308,35 @@ bgColor: '#1a1a2e',       // цвет фона (если нет картинки
 | `npm run build` | Сборка для production |
 | `npm run preview` | Просмотр production-сборки |
 | `npx tsc --noEmit` | Проверка TypeScript |
+
+---
+
+## Публикация (GitHub Pages)
+
+Сайт публикуется автоматически при мердже в `main` — в релиз уходит только смерженное.
+
+### Ветки
+
+| Ветка | Назначение |
+|-------|------------|
+| `dev` | Рабочая ветка: новые проекты, правки контента, эксперименты |
+| `main` | Релизная ветка. Пуш или мердж в `main` → сборка и деплой на GitHub Pages |
+
+Рабочий процесс: правки в `dev` → проверка локально (`npm run dev`) → pull request или мердж `dev` в `main` → автодеплой.
+
+### Как это устроено
+
+- `.github/workflows/deploy.yml` — GitHub Actions: `npm ci` → `npm run build` → публикация `dist/` на Pages. Запускается только на пуш в `main`.
+- `base: '/Portfolio-oriamio/'` в `vite.config.ts` — префикс адреса страницы проекта.
+- `postbuild` копирует `index.html` → `404.html` — чтобы прямые ссылки на `/projects/...` работали на GitHub Pages (SPA-роутинг).
+- Проекты с `draft: true` во frontmatter не попадают в сборку.
+
+### Первое включение (один раз)
+
+В репозитории на GitHub: **Settings → Pages → Source: "GitHub Actions"**. После этого первый пуш в `main` опубликует сайт по адресу `https://olgaoriami-gif.github.io/Portfolio-oriamio/`.
+
+### Свой домен (когда понадобится)
+
+1. В настройках Pages указать домен (или добавить файл `public/CNAME` с именем домена).
+2. В `vite.config.ts` сменить `base` на `'/'`.
+3. Настроить DNS у регистратора (CNAME на `olgaoriami-gif.github.io`).
