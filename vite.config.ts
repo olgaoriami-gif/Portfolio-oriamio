@@ -5,6 +5,8 @@ import path from 'path'
 
 const DRAFTS_ID = 'virtual:portfolio-drafts'
 const RESOLVED_DRAFTS_ID = '\0' + DRAFTS_ID
+const ORDER_ID = 'virtual:portfolio-order'
+const RESOLVED_ORDER_ID = '\0' + ORDER_ID
 
 /** True when content.md frontmatter contains `draft: true` (yes/1/on work too) */
 function isDraftMarkdown(raw: string): boolean {
@@ -33,6 +35,19 @@ function collectDraftIds(root: string): string[] {
   return drafts.sort()
 }
 
+/** Project ids listed in public/projects.order — one per line, # comments */
+function readProjectOrder(root: string): string[] {
+  try {
+    return fs
+      .readFileSync(path.resolve(root, 'public/projects.order'), 'utf8')
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter((line) => line && !line.startsWith('#'))
+  } catch {
+    return []
+  }
+}
+
 /**
  * Exposes the draft list as `import draftIds from 'virtual:portfolio-drafts'`
  * and strips draft folders from the build output, so drafts never deploy.
@@ -51,15 +66,26 @@ function portfolioDrafts(): Plugin {
     },
     resolveId(id) {
       if (id === DRAFTS_ID) return RESOLVED_DRAFTS_ID
+      if (id === ORDER_ID) return RESOLVED_ORDER_ID
     },
     load(id) {
       if (id === RESOLVED_DRAFTS_ID) {
         return `export default ${JSON.stringify(collectDraftIds(root))}`
       }
+      if (id === RESOLVED_ORDER_ID) {
+        return `export default ${JSON.stringify(readProjectOrder(root))}`
+      }
     },
     handleHotUpdate({ file, server }) {
       if (/[/\\]projects[/\\][^/\\]+[/\\]content\.md$/.test(file)) {
         const mod = server.moduleGraph.getModuleById(RESOLVED_DRAFTS_ID)
+        if (mod) {
+          server.moduleGraph.invalidateModule(mod)
+          return [mod]
+        }
+      }
+      if (/[/\\]projects\.order$/.test(file)) {
+        const mod = server.moduleGraph.getModuleById(RESOLVED_ORDER_ID)
         if (mod) {
           server.moduleGraph.invalidateModule(mod)
           return [mod]

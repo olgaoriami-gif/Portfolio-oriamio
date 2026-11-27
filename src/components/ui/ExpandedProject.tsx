@@ -1,12 +1,10 @@
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { ExternalLink, X } from 'lucide-react'
 import ProjectContent from './ProjectContent'
 import { useProjectContent } from '@/lib/projectContent'
 
 type ExpandedProjectProps = {
   id?: string
-  projectId?: string
   title: string
   image: string
   contentFile?: string
@@ -17,7 +15,6 @@ type ExpandedProjectProps = {
 
 function ExpandedProject({
   id,
-  projectId,
   title,
   image,
   contentFile,
@@ -75,28 +72,6 @@ function ExpandedProject({
         ) : (
           <div className="h-16 w-full" />
         )}
-        {/* Close button */}
-        <div className="absolute right-2 top-2 flex items-center gap-2">
-          {projectId ? (
-            <a
-              href={`${import.meta.env.BASE_URL}projects/${projectId}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex h-8 items-center gap-1.5 rounded-full bg-black/30 px-3 text-xs text-[var(--color-static-white)] backdrop-blur-sm transition-colors hover:bg-black/50"
-            >
-              <ExternalLink size={14} />
-              Открыть отдельно
-            </a>
-          ) : null}
-          <button
-            type="button"
-            onClick={onClose}
-            className="flex h-8 w-8 items-center justify-center rounded-full bg-black/30 backdrop-blur-sm transition-colors hover:bg-black/50"
-            aria-label="Закрыть"
-          >
-            <X size={18} className="text-[var(--color-static-white)]" />
-          </button>
-        </div>
       </div>
 
       {/* Content */}

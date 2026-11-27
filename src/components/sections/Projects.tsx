@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
+import { ExternalLink, X } from 'lucide-react'
 
 import { type Category } from '@/components/ui/CategorySwitcher'
 import ProjectCard from '@/components/ui/ProjectCard'
 import ExpandedProject from '@/components/ui/ExpandedProject'
 import { portfolioItems, type PortfolioItem } from '@/lib/portfolioData'
 import { isDraft } from '@/lib/drafts'
+import { projectRank } from '@/lib/projectOrder'
 import {
   fetchProjectContent,
   projectContentFile,
@@ -28,17 +30,7 @@ const spanClasses: Record<number, string> = {
   12: 'md:col-span-12',
 }
 
-function scrollToExpandedProject(id: string) {
-  const project = document.getElementById(`expanded-${id}`)
-  const headerHeight = document.querySelector('header')?.getBoundingClientRect().height ?? 0
 
-  if (project) {
-    window.scrollTo({
-      top: project.getBoundingClientRect().top + window.scrollY - headerHeight - 16,
-      behavior: 'smooth',
-    })
-  }
-}
 
 function Projects() {
   const [searchParams] = useSearchParams()
@@ -75,15 +67,33 @@ function Projects() {
     setExpandedId(null)
   }, [active])
 
+  // Locks page scroll and handles Escape while the overlay is open.
+  useEffect(() => {
+    if (!expandedId) return
+    const prevOverflow = document.documentElement.style.overflow
+    document.documentElement.style.overflow = 'hidden'
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setExpandedId(null)
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.documentElement.style.overflow = prevOverflow
+      window.removeEventListener('keydown', onKeyDown)
+    }
+  }, [expandedId])
+
   const projects = useMemo(
     () =>
-      portfolioItems.filter(
-        (item): item is Extract<PortfolioItem, { type: 'project' }> =>
-          item.type === 'project' &&
-          (showDrafts || !isDraft(item.id)) &&
-          (active === 'all' ||
-            (mdContent[item.id]?.meta.category ?? item.category) === active),
-      ),
+      portfolioItems
+        .filter(
+          (item): item is Extract<PortfolioItem, { type: 'project' }> =>
+            item.type === 'project' &&
+            (showDrafts || !isDraft(item.id)) &&
+            (active === 'all' ||
+              (mdContent[item.id]?.meta.category ?? item.category) === active),
+        )
+        // projects.order wins; unlisted ids keep portfolioData order at the end
+        .sort((a, b) => projectRank(a.id) - projectRank(b.id)),
     [active, mdContent, showDrafts],
   )
 
@@ -92,6 +102,8 @@ function Projects() {
     [expandedId, projects],
   )
 
+
+  const expandedMeta = activeProject ? mdContent[activeProject.id]?.meta : undefined
 
   return (
     <section id="projects" className="py-8">
@@ -111,85 +123,125 @@ function Projects() {
             const year = meta?.year ?? project.year?.toString()
             const span = meta?.span ?? 6
             const isDynamic = Boolean(parsed)
-            const isExpanded = isDynamic && activeProject?.id === project.id
-            const layoutClassName = isExpanded
-              ? 'md:col-span-12'
-              : spanClasses[span]
 
             return (
-              <AnimatePresence key={project.id} mode="wait" initial={false}>
-                {isExpanded ? (
-                  <motion.div
-                    key={`${project.id}-expanded`}
-                    initial={{ opacity: 0, y: 24 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -24 }}
-                    transition={{ duration: 0.35 }}
-                    onAnimationComplete={() => {
-                      if (expandedId === project.id) scrollToExpandedProject(project.id)
-                    }}
-                    className={layoutClassName}
-                  >
-                    <ExpandedProject
-                      id={`expanded-${project.id}`}
-                      projectId={project.id}
-                      title={title}
-                      image={image}
-                      contentFile={projectContentFile(project)}
-                      borderColor={project.borderColor}
-                      bgColor={project.bgColor}
-                      onClose={() => setExpandedId(null)}
-                    />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key={project.id}
-                    id={`card-${project.id}`}
-                    initial={{ opacity: 0, y: 32 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -24 }}
-                    transition={{ duration: 0.45, delay: index * 0.08 }}
-                    onClick={isDynamic ? () => setExpandedId(project.id) : undefined}
-                    onKeyDown={
-                      isDynamic
-                        ? (event) => {
-                            if (event.key === 'Enter' || event.key === ' ') {
-                              event.preventDefault()
-                              setExpandedId(project.id)
-                            }
-                          }
-                        : undefined
-                    }
-                    role={isDynamic ? 'button' : undefined}
-                    tabIndex={isDynamic ? 0 : undefined}
-                    className={`${layoutClassName ?? ''} relative ${
-                      isDynamic
-                        ? 'cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-fg focus-visible:ring-offset-4 focus-visible:ring-offset-bg'
-                        : ''
-                    }`}
-                  >
-                    {showDrafts && isDraft(project.id) && (
-                      <span className="absolute left-3 top-3 z-10 rounded-md bg-black/60 px-2 py-1 text-xs font-medium uppercase tracking-wide text-white">
-                        draft
-                      </span>
-                    )}
-                    <ProjectCard
-                      title={title}
-                      image={image}
-                      year={year}
-                      span={span}
-                      borderColor={project.borderColor}
-                      bgColor={project.bgColor}
-                      interactive={isDynamic}
-                      hasContent={isDynamic}
-                    />
-                  </motion.div>
+              <motion.div
+                key={project.id}
+                id={`card-${project.id}`}
+                initial={{ opacity: 0, y: 32 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: index * 0.08 }}
+                onClick={
+                  isDynamic ? () => setExpandedId(project.id) : undefined
+                }
+                onKeyDown={
+                  isDynamic
+                    ? (event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault()
+                          setExpandedId(project.id)
+                        }
+                      }
+                    : undefined
+                }
+                role={isDynamic ? 'button' : undefined}
+                tabIndex={isDynamic ? 0 : undefined}
+                className={`${spanClasses[span]} relative ${
+                  isDynamic
+                    ? 'cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-fg focus-visible:ring-offset-4 focus-visible:ring-offset-bg'
+                    : ''
+                }`}
+              >
+                {showDrafts && isDraft(project.id) && (
+                  <span className="absolute left-3 top-3 z-10 rounded-md bg-black/60 px-2 py-1 text-xs font-medium uppercase tracking-wide text-white">
+                    draft
+                  </span>
                 )}
-              </AnimatePresence>
+                <ProjectCard
+                  title={title}
+                  image={image}
+                  year={year}
+                  span={span}
+                  borderColor={project.borderColor}
+                  bgColor={project.bgColor}
+                  interactive={isDynamic}
+                  hasContent={isDynamic}
+                />
+              </motion.div>
             )
           })}
         </motion.div>
       </div>
+
+      {/* Expanded project — full-screen modal; the grid never reflows */}
+      <AnimatePresence>
+        {activeProject ? (
+          <motion.div
+            key="project-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[60] overflow-y-auto overscroll-contain bg-bg"
+          >
+            {/* Pinned controls — stay top-right while scrolling */}
+            <div
+              data-preview-bar
+              className="fixed right-4 top-4 z-10 flex items-center gap-2"
+            >
+              <a
+                href={`${import.meta.env.BASE_URL}projects/${activeProject.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-8 items-center gap-1.5 rounded-full bg-black/30 px-3 text-xs text-[var(--color-static-white)] backdrop-blur-sm transition-colors hover:bg-black/50"
+              >
+                <ExternalLink size={14} />
+                Открыть отдельно
+              </a>
+              <button
+                type="button"
+                onClick={() => setExpandedId(null)}
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-black/30 backdrop-blur-sm transition-colors hover:bg-black/50"
+                aria-label="Закрыть"
+              >
+                <X size={18} className="text-[var(--color-static-white)]" />
+              </button>
+            </div>
+
+            <motion.div
+              id={`expanded-${activeProject.id}`}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 40 }}
+              transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="mx-auto w-full px-6 py-8"
+            >
+              <div className="mb-6 flex items-center justify-between gap-4 text-sm text-fg-muted">
+                <button
+                  type="button"
+                  onClick={() => setExpandedId(null)}
+                  className="transition-colors hover:text-fg"
+                >
+                  ← Все проекты
+                </button>
+                <span>
+                  {expandedMeta?.category ?? activeProject.category ?? ''}
+                </span>
+              </div>
+              <ExpandedProject
+                title={
+                  expandedMeta?.title ?? activeProject.title ?? activeProject.id
+                }
+                image={expandedMeta?.cover ?? activeProject.image ?? ''}
+                contentFile={projectContentFile(activeProject)}
+                borderColor={activeProject.borderColor}
+                bgColor={activeProject.bgColor}
+                onClose={() => setExpandedId(null)}
+              />
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </section>
   )
 }
