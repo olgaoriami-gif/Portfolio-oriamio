@@ -6,6 +6,7 @@ import { type Category } from '@/components/ui/CategorySwitcher'
 import ProjectCard from '@/components/ui/ProjectCard'
 import ExpandedProject from '@/components/ui/ExpandedProject'
 import { portfolioItems, type PortfolioItem } from '@/lib/portfolioData'
+import { isDraft } from '@/lib/drafts'
 import {
   fetchProjectContent,
   projectContentFile,
@@ -46,6 +47,7 @@ function Projects() {
     raw === 'all' || raw === '3d' || raw === '2d' || raw === 'design-system'
       ? raw
       : '3d'
+  const showDrafts = searchParams.has('drafts')
 
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [mdContent, setMdContent] = useState<Record<string, ParsedProject>>({})
@@ -78,10 +80,11 @@ function Projects() {
       portfolioItems.filter(
         (item): item is Extract<PortfolioItem, { type: 'project' }> =>
           item.type === 'project' &&
+          (showDrafts || !isDraft(item.id)) &&
           (active === 'all' ||
             (mdContent[item.id]?.meta.category ?? item.category) === active),
       ),
-    [active, mdContent],
+    [active, mdContent, showDrafts],
   )
 
   const activeProject = useMemo(
@@ -159,12 +162,17 @@ function Projects() {
                     }
                     role={isDynamic ? 'button' : undefined}
                     tabIndex={isDynamic ? 0 : undefined}
-                    className={`${layoutClassName ?? ''} ${
+                    className={`${layoutClassName ?? ''} relative ${
                       isDynamic
                         ? 'cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-fg focus-visible:ring-offset-4 focus-visible:ring-offset-bg'
                         : ''
                     }`}
                   >
+                    {showDrafts && isDraft(project.id) && (
+                      <span className="absolute left-3 top-3 z-10 rounded-md bg-black/60 px-2 py-1 text-xs font-medium uppercase tracking-wide text-white">
+                        draft
+                      </span>
+                    )}
                     <ProjectCard
                       title={title}
                       image={image}

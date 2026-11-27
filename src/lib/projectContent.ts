@@ -12,6 +12,8 @@ import type { Category } from '@/components/ui/CategorySwitcher'
  * cover: img-cover.png      # optional, falls back to first image in the body
  * size: 6                   # optional, card width in grid columns 1–12
  *                           # (words work too: full=12, half=6, third=4, quarter=3)
+ * draft: true               # optional, hides the project from the UI and
+ *                           # excludes its folder from the build entirely
  * ---
  */
 export type ProjectMeta = {

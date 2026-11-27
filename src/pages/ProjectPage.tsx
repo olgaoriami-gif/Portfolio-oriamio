@@ -1,8 +1,9 @@
 import { Helmet } from 'react-helmet-async'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom'
 
 import ProjectContent from '@/components/ui/ProjectContent'
 import { portfolioItems } from '@/lib/portfolioData'
+import { isDraft } from '@/lib/drafts'
 import { projectContentFile, useProjectContent } from '@/lib/projectContent'
 
 type ProjectNavigationProps = {
@@ -22,6 +23,7 @@ function ProjectNavigation({ category }: ProjectNavigationProps) {
 
 function ProjectPage() {
   const { projectId } = useParams<{ projectId: string }>()
+  const [searchParams] = useSearchParams()
   const project = portfolioItems.find(
     (item) => item.type === 'project' && item.id === projectId,
   )
@@ -31,7 +33,12 @@ function ProjectPage() {
       : undefined,
   )
 
-  if (!project || project.type !== 'project') return <Navigate to="/" replace />
+  if (
+    !project ||
+    project.type !== 'project' ||
+    (isDraft(project.id) && !searchParams.has('drafts'))
+  )
+    return <Navigate to="/" replace />
 
   const title = parsed?.meta.title ?? project.title ?? project.id
   const cover = parsed?.meta.cover ?? project.image

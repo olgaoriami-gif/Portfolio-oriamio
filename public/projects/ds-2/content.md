@@ -1,5 +1,6 @@
 ---
 title: DS-2
+draft: true
 year:
 category: design-system
 size: 6

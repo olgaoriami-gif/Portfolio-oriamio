@@ -8,9 +8,9 @@ cover: img-cover-4.png
 
 # Обложки полисов страхования
 
-![](/projects/3d-4/img-cover-4.png)
+Когда создаешь что-то в серийном наборе, важно найти общий ход, который позволит объединить разные направления в одном ключе. Первый этап был самый очевидный объединение цветом по категориям, и второй найти общие паттерны. Мне было важно сохранить баланас считывания изображения в разных массштабах, чтобы главное считывалось везде, а воторостипенное давало разнообразие для глаза в крупном размере и не мешало в мелком, так я со времинем пришла к вариантам с реалестичными объектами как главный символ и крупным формам абстрактным формам на фоне, объединяя всё монохромной паллитрой в тона категорий.
 
-Описание проекта.
+Часть моделей была взята из Blander Kit и часть была сделана мной.
 
 ![](/projects/3d-4/img-result-4.png)
 
@@ -130,45 +130,21 @@ cover: img-cover-4.png
 
 ## РГС-оnline
 
-### Животные
-
 ![](/projects/3d-4/Image%20Policy/img-result-31.png)
 
-### Здоровье
-
 :::gallery
-![3](/projects/3d-4/Image%20Policy/img-result-32.png)
-![3](/projects/3d-4/Image%20Policy/img-result-33.png)
-![3](/projects/3d-4/Image%20Policy/img-result-34.png)
-![3](/projects/3d-4/Image%20Policy/img-result-35.png)
+![4](/projects/3d-4/Image%20Policy/img-result-32.png)
+![4](/projects/3d-4/Image%20Policy/img-result-33.png)
+![4](/projects/3d-4/Image%20Policy/img-result-34.png)
 :::
 
-### Имущество
-
 :::gallery
-![4](/projects/3d-4/Image%20Policy/img-result-36.png)
-![4](/projects/3d-4/Image%20Policy/img-result-37.png)
-![4](/projects/3d-4/Image%20Policy/img-result-38.png)
+![6](/projects/3d-4/Image%20Policy/img-result-36.png)
+![6](/projects/3d-4/Image%20Policy/img-result-37.png)
 :::
-
-### Ипотека
-
-![](/projects/3d-4/Image%20Policy/img-result-39.png)
-
-### Путешествия
-
-![](/projects/3d-4/Image%20Policy/img-result-40.png)
-::::
 
 ::::wrapper
 
-## Финансы
-
-![](/projects/3d-4/Image%20Policy/img-result-47.png)
-
-::::
-
-::::wrapper
 ### Моделирование в Blender & Plasticity
 
 ![](/projects/3d-4/img-result-56.png)
