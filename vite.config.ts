@@ -78,11 +78,53 @@ function portfolioDrafts(): Plugin {
   }
 }
 
+const OPTIMIZED_EXT = /\.(png|jpe?g|gif)$/i
+
+/**
+ * Removes source raster files from dist/projects when a .webp twin exists —
+ * the app always references the optimized .webp versions, so shipping the
+ * originals would just bloat the deploy artifact (~225MB).
+ */
+function stripOptimizedOriginals(): Plugin {
+  let root = ''
+  let outDir = 'dist'
+  let isBuild = false
+
+  return {
+    name: 'strip-optimized-originals',
+    configResolved(config) {
+      root = config.root
+      outDir = config.build.outDir
+      isBuild = config.command === 'build'
+    },
+    closeBundle() {
+      if (!isBuild) return
+      const walk = (dir: string) => {
+        for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+          const full = path.join(dir, entry.name)
+          if (entry.isDirectory()) walk(full)
+          else if (
+            OPTIMIZED_EXT.test(entry.name) &&
+            fs.existsSync(full.replace(OPTIMIZED_EXT, '.webp'))
+          ) {
+            fs.rmSync(full)
+          }
+        }
+      }
+      try {
+        walk(path.resolve(root, outDir, 'projects'))
+      } catch {
+        // no projects dir — nothing to strip
+      }
+    },
+  }
+}
+
 export default defineConfig({
   // GitHub Pages project site: https://olgaoriami-gif.github.io/Portfolio-oriamio/
   // When a custom domain is connected, change base to '/'.
   base: '/Portfolio-oriamio/',
-  plugins: [react(), portfolioDrafts()],
+  plugins: [react(), portfolioDrafts(), stripOptimizedOriginals()],
   server: {
     watch: {
       ignored: ['**/*.mp4'],

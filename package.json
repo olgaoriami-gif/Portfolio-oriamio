@@ -5,8 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
+    "predev": "node scripts/optimize-images.mjs",
     "build": "tsc && vite build",
+    "prebuild": "node scripts/optimize-images.mjs",
     "postbuild": "cp dist/index.html dist/404.html",
+    "optimize": "node scripts/optimize-images.mjs",
     "preview": "vite preview",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,md}\" \"*.{js,cjs,json}\""
@@ -39,6 +42,7 @@
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.14",
+    "sharp": "^0.35.5",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.5",
     "vite": "^5.2.11"

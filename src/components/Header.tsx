@@ -67,7 +67,7 @@ function Header() {
                 className="block h-11 w-11 overflow-hidden rounded-full transition-transform duration-200 hover:scale-110 active:scale-95 md:h-12 md:w-12"
               >
                 <img
-                  src={`${import.meta.env.BASE_URL}about/foto-avatar.png`}
+                  src={`${import.meta.env.BASE_URL}about/foto-avatar.webp`}
                   alt="Оля Баранова"
                   className="h-full w-full object-cover"
                 />

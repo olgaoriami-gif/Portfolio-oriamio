@@ -307,6 +307,7 @@ bgColor: '#1a1a2e',       // цвет фона (если нет картинки
 | `npm run dev` | Запуск локального сервера |
 | `npm run build` | Сборка для production |
 | `npm run preview` | Просмотр production-сборки |
+| `npm run optimize` | Конвертация png/jpg/gif в .webp (запускается сама перед dev и build) |
 | `npx tsc --noEmit` | Проверка TypeScript |
 
 ---
@@ -330,6 +331,7 @@ bgColor: '#1a1a2e',       // цвет фона (если нет картинки
 - `base: '/Portfolio-oriamio/'` в `vite.config.ts` — префикс адреса страницы проекта.
 - `postbuild` копирует `index.html` → `404.html` — чтобы прямые ссылки на `/projects/...` работали на GitHub Pages (SPA-роутинг).
 - Проекты с `draft: true` во frontmatter не попадают в сборку.
+- Картинки автоматически оптимизируются: `scripts/optimize-images.mjs` создаёт `.webp`-дубли (quality 82, до 2800px — это покрывает Retina 2x), сайт ссылается на них, а оригиналы выкидываются из сборки. Запускается перед `dev`/`build`, вручную — `npm run optimize`. Файлы `.webp` коммитим вместе с исходниками.
 
 ### Первое включение (один раз)
 

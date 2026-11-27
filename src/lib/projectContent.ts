@@ -76,12 +76,19 @@ function firstHeading(body: string): string | undefined {
   return body.match(/^#\s+(.+)$/m)?.[1]?.trim()
 }
 
+/** Points a local raster image path at its optimized .webp twin
+ *  (produced by scripts/optimize-images.mjs). */
+function preferWebp(src: string): string {
+  return src.replace(/\.(png|jpe?g|gif)$/i, '.webp')
+}
+
 /** Resolves an asset path relative to the content.md directory */
 function resolveAssetPath(src: string, contentFile: string): string {
   if (/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(src)) return src
-  if (src.startsWith('/')) return `${BASE_URL}${src.slice(1)}`
-  const dir = contentFile.slice(0, contentFile.lastIndexOf('/'))
-  return `${dir}/${src}`
+  const resolved = src.startsWith('/')
+    ? `${BASE_URL}${src.slice(1)}`
+    : `${contentFile.slice(0, contentFile.lastIndexOf('/'))}/${src}`
+  return preferWebp(resolved)
 }
 
 /**
@@ -105,6 +112,20 @@ function resolveBodyImages(body: string, contentFile: string): string {
 function resolveRootAssetUrls(body: string): string {
   if (BASE_URL === '/') return body
   return body.replace(/(src|href)=(["'])\/(?!\/)/g, `$1=$2${BASE_URL}`)
+}
+
+/**
+ * Points src/href attributes in raw HTML (e.g. <img src="photo.png">)
+ * at their .webp twins. External URLs are left alone.
+ */
+function preferWebpInHtml(body: string): string {
+  return body.replace(
+    /(src|href)=(["'])([^"']+\.(?:png|jpe?g|gif))\2/gi,
+    (match, attr, quote, url) =>
+      /^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(url)
+        ? match
+        : `${attr}=${quote}${preferWebp(url)}${quote}`,
+  )
 }
 
 /** Normalizes a frontmatter category value: "2D", "ds", "design system" → '2d' | '3d' | 'design-system' */
@@ -153,7 +174,9 @@ export function fetchProjectContent(
       .then((raw) => {
         if (raw == null) return null
         const { attrs, body: rawBody } = parseFrontmatter(raw)
-        const body = resolveRootAssetUrls(resolveBodyImages(rawBody, contentFile))
+        const body = preferWebpInHtml(
+          resolveRootAssetUrls(resolveBodyImages(rawBody, contentFile)),
+        )
         const cover =
           attrs.cover || firstImageSrc(body)
         return {
