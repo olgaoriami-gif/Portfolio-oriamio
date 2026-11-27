@@ -79,7 +79,7 @@ function ExpandedProject({
         <div className="absolute right-2 top-2 flex items-center gap-2">
           {projectId ? (
             <a
-              href={`/projects/${projectId}`}
+              href={`${import.meta.env.BASE_URL}projects/${projectId}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex h-8 items-center gap-1.5 rounded-full bg-black/30 px-3 text-xs text-[var(--color-static-white)] backdrop-blur-sm transition-colors hover:bg-black/50"
