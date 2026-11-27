@@ -165,6 +165,15 @@ function remarkDirectiveLayout() {
     if (/^\d+$/.test(value)) return `${Number(value) * 0.25}rem`
     return value
   }
+  const applyPadding = (attributes: Record<string, string>, style: Record<string, string>) => {
+    const px = paddingValue(attributes.padding)
+    const pt = paddingValue(attributes.pt)
+    const pb = paddingValue(attributes.pb)
+    if (px) style['--pp-x'] = px
+    if (pt) style['--pp-t'] = pt
+    if (pb) style['--pp-b'] = pb
+    return Boolean(px || pt || pb)
+  }
   return (tree: Node) => {
     visit(tree, 'containerDirective', (node: DirectiveNode) => {
       const { name, attributes } = node
@@ -176,41 +185,17 @@ function remarkDirectiveLayout() {
         className = 'project-content-wrapper my-6'
       } else if (name === 'gallery') {
         const cols = Math.min(parseInt(attributes.cols || '2', 10) || 2, 6)
-        const px = paddingValue(attributes.padding)
-        const pt = paddingValue(attributes.pt)
-        const pb = paddingValue(attributes.pb)
-        if (px) {
-          style.paddingLeft = px
-          style.paddingRight = px
-        }
-        if (pt) style.paddingTop = pt
-        if (pb) style.paddingBottom = pb
+        const hasPad = applyPadding(attributes, style)
         if (attributes.align) style.textAlign = attributes.align
         style['--g-span'] = String(Math.max(1, Math.floor(12 / cols)))
         if (attributes.height) rowH = attributes.height
-        className = 'gallery-grid gallery-12 my-6 w-full'
+        className = `gallery-grid gallery-12 my-6 w-full${hasPad ? ' pc-pad' : ''}`
       } else if (name === 'two-columns') {
-        const px = paddingValue(attributes.padding)
-        const pt = paddingValue(attributes.pt)
-        const pb = paddingValue(attributes.pb)
-        if (px) {
-          style.paddingLeft = px
-          style.paddingRight = px
-        }
-        if (pt) style.paddingTop = pt
-        if (pb) style.paddingBottom = pb
+        if (applyPadding(attributes, style)) className += ' pc-pad'
         if (attributes.align) style.textAlign = attributes.align
         className += ' grid gap-6 md:grid-cols-2'
       } else if (name === 'one-columns') {
-        const px = paddingValue(attributes.padding)
-        const pt = paddingValue(attributes.pt)
-        const pb = paddingValue(attributes.pb)
-        if (px) {
-          style.paddingLeft = px
-          style.paddingRight = px
-        }
-        if (pt) style.paddingTop = pt
-        if (pb) style.paddingBottom = pb
+        if (applyPadding(attributes, style)) className += ' pc-pad'
         if (attributes.align) style.textAlign = attributes.align
       } else if (name === 'aside') {
         const position = attributes.position === 'right' ? 'md:ml-auto' : 'md:mr-auto'

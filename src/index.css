@@ -204,11 +204,22 @@
 .project-content > hr:first-child { margin-top: calc(-1 * var(--pc-py)); }
 .project-content > hr:last-child { margin-bottom: calc(-1 * var(--pc-py)); }
 
+/* Directive paddings (:::one-columns{pt=…}, etc.): halved below md,
+   like the `---` spacers — 6rem side padding would leave ~200px of text */
+.pc-pad {
+  padding: calc(var(--pp-t, 0px) * var(--pp-scale, 1))
+    calc(var(--pp-x, 0px) * var(--pp-scale, 1))
+    calc(var(--pp-b, 0px) * var(--pp-scale, 1));
+}
+
 /* Below md there is no 12-col template, so inline `grid-column: span N`
-   would create implicit columns and overflow the page — stack everything */
+   would create implicit columns and overflow the page — stack everything.
+   minmax(0,…) + min-width:0 keep items from widening the single track to
+   their max-content (e.g. a large image's intrinsic width) */
 @media (max-width: 767.98px) {
-  .gallery-12 { grid-template-columns: 1fr; }
-  .gallery-12 > * { grid-column: auto !important; }
+  .pc-pad { --pp-scale: 0.5; }
+  .gallery-12 { grid-template-columns: minmax(0, 1fr); }
+  .gallery-12 > * { grid-column: auto !important; min-width: 0; }
 }
 
 @media (min-width: 768px) {
