@@ -80,8 +80,3 @@ cover: img-cover-2.png
 ![6](/projects/3d-2/img-result-17.png)
 ![6](/projects/3d-2/img-result-19.png)
 :::
-
-:::two-columns
-![](/projects/3d-2/img-result-20.png)
-
-:::
