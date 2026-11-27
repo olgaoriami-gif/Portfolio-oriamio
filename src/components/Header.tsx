@@ -122,7 +122,7 @@ function Header() {
             <button
               type="button"
               onClick={toggle}
-              className="flex h-9 w-9 items-center justify-center rounded-lg border-[length:var(--border-width)] border-[var(--color-border)] text-fg-secondary transition-colors hover:border-[var(--color-border-hover)] hover:text-fg"
+              className="flex h-9 w-9 items-center justify-center rounded-full border-[length:var(--border-width)] border-[var(--color-border)] text-fg-secondary transition-colors hover:border-[var(--color-border-hover)] hover:text-fg"
               aria-label={theme === 'dark' ? 'Светлая тема' : 'Тёмная тема'}
             >
               {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
@@ -130,7 +130,7 @@ function Header() {
             {/* Mobile menu button */}
             <button
               type="button"
-              className="rounded-md p-2 text-fg-secondary transition-colors hover:bg-bg-elevated hover:text-fg md:hidden"
+              className="rounded-full p-2 text-fg-secondary transition-colors hover:bg-bg-elevated hover:text-fg md:hidden"
               aria-label={open ? 'Закрыть меню' : 'Открыть меню'}
               aria-expanded={open}
               onClick={() => setOpen((s) => !s)}
