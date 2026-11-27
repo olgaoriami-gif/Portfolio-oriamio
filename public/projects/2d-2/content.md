@@ -2,7 +2,6 @@
 title: Стиль иллюстраций для Я-Такси
 year: 2018
 category: 2d
-size: 8
 cover: ONY/titul@2x.png
 ---
 

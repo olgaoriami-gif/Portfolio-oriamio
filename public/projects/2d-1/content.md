@@ -2,7 +2,6 @@
 title: Подкаст
 year: 2019
 category: 2d
-size: 4
 cover: img-cover-7.png
 ---
 

@@ -2,7 +2,6 @@
 title: Success or not success?
 year: 2023
 category: 3d
-size: 8
 cover: img-cover-3.png
 ---
 

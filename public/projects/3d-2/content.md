@@ -2,7 +2,6 @@
 title: Системные иллюстрации для ЛК
 year: 2023-25
 category: 3d
-size: 4
 cover: img-cover-2.png
 ---
 

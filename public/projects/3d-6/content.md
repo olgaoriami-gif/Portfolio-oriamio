@@ -2,7 +2,6 @@
 title: Офисы & Агенты
 year:
 category: 3d
-size: 12
 cover: img-cover-6.png
 ---
 

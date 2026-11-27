@@ -2,7 +2,6 @@
 title: Скидки • E-mail
 year:
 category: 3d
-size: 12
 cover: img-cover-1.png
 ---
 

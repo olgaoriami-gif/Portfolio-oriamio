@@ -2,7 +2,6 @@
 title: Design System • RGS
 year:
 category: design-system
-size: 12
 cover: img-Cover.png
 ---
 

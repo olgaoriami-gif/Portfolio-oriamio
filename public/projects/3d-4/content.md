@@ -2,7 +2,6 @@
 title: Обложки полисов страхования
 year: 2023-24
 category: 3d
-size: 5
 cover: img-cover-4.png
 ---
 

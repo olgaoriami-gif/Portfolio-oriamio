@@ -2,7 +2,6 @@
 title: Dark Story Type
 year: 2022
 category: 3d
-size: 7
 cover: img-cover-5.png
 ---
 
