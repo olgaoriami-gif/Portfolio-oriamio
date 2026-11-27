@@ -45,7 +45,7 @@ function Projects() {
   const active: Category =
     raw === 'all' || raw === '3d' || raw === '2d' || raw === 'design-system'
       ? raw
-      : '3d'
+      : 'all'
 
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [mdContent, setMdContent] = useState<Record<string, ParsedProject>>({})
