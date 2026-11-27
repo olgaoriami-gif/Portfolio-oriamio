@@ -8,7 +8,7 @@ import ProjectCard from '@/components/ui/ProjectCard'
 import ExpandedProject from '@/components/ui/ExpandedProject'
 import { portfolioItems, type PortfolioItem } from '@/lib/portfolioData'
 import { isDraft } from '@/lib/drafts'
-import { projectRank } from '@/lib/projectOrder'
+import { projectRank, projectSpan } from '@/lib/projectOrder'
 import {
   fetchProjectContent,
   projectContentFile,
@@ -121,7 +121,7 @@ function Projects() {
             const title = meta?.title ?? project.title ?? project.id
             const image = meta?.cover ?? project.image ?? ''
             const year = meta?.year ?? project.year?.toString()
-            const span = meta?.span ?? 6
+            const span = projectSpan(project.id) ?? meta?.span ?? 6
             const isDynamic = Boolean(parsed)
 
             return (

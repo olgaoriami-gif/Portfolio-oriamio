@@ -6,6 +6,6 @@ declare module 'virtual:portfolio-drafts' {
 }
 
 declare module 'virtual:portfolio-order' {
-  const ids: string[]
-  export default ids
+  const entries: { id: string; size?: string }[]
+  export default entries
 }

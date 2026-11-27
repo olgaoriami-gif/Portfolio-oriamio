@@ -35,14 +35,18 @@ function collectDraftIds(root: string): string[] {
   return drafts.sort()
 }
 
-/** Project ids listed in public/projects.order — one per line, # comments */
-function readProjectOrder(root: string): string[] {
+/** Entries of public/projects.order — "<id> [span]" per line, # comments */
+function readProjectOrder(root: string): { id: string; size?: string }[] {
   try {
     return fs
       .readFileSync(path.resolve(root, 'public/projects.order'), 'utf8')
       .split(/\r?\n/)
       .map((line) => line.trim())
       .filter((line) => line && !line.startsWith('#'))
+      .map((line) => {
+        const [id, size] = line.split(/\s+/)
+        return { id, size }
+      })
   } catch {
     return []
   }

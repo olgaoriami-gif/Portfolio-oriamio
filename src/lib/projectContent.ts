@@ -145,7 +145,7 @@ const sizeWords: Record<string, number> = {
   quarter: 3, '1/4': 3, '25': 3, '25%': 3,
 }
 
-function normalizeSize(value: string): number | undefined {
+export function normalizeSize(value: string): number | undefined {
   const v = value.trim().toLowerCase()
   if (v in sizeWords) return sizeWords[v]
   const n = Number.parseInt(v, 10)
