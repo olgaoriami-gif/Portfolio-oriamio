@@ -220,6 +220,14 @@
   .pc-pad { --pp-scale: 0.5; }
   .gallery-12 { grid-template-columns: minmax(0, 1fr); }
   .gallery-12 > * { grid-column: auto !important; min-width: 0; }
+
+  /* Word hyphenation on narrow screens (lang="ru" drives the rules);
+     limit-chars avoids silly 1–2 letter splits where supported */
+  .project-content :is(p, li, blockquote) {
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 3;
+  }
 }
 
 @media (min-width: 768px) {
