@@ -1,13 +1,11 @@
 ---
 title: Скидки • E-mail
-year:
+year: 2024
 category: 3d
 cover: img-cover-1.png
 ---
 
 # Скидки • E-mail
-
-![](/projects/3d-1/img-cover-1.png)
 
 ## О проекте
 
@@ -33,12 +31,14 @@ cover: img-cover-1.png
 :::
 
 :::aside{position=right}
+
 ### Инструменты
 
 - Blender 4.0
 - Geometry Nodes
 - Cycles Render Engine
 - Procedural Materials
+
 :::
 
 ---

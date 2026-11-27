@@ -16,4 +16,3 @@ cover: img-cover-7.png
 :::gallery
 ![8@center](/projects/2d-1/img-result-1.png)
 :::
-
