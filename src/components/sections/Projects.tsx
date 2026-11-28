@@ -184,10 +184,16 @@ function Projects() {
             transition={{ duration: 0.25 }}
             className="fixed inset-0 z-[60] overflow-y-auto overscroll-contain bg-bg"
           >
+            {/* Bleeds past the viewport so page content doesn't show
+                through floating browser chrome (URL bar, toolbars) */}
+            <div
+              aria-hidden="true"
+              className="fixed -inset-y-[20vh] inset-x-0 bg-bg"
+            />
             {/* Pinned controls — stay top-right while scrolling */}
             <div
               data-preview-bar
-              className="fixed right-4 top-4 z-10 flex items-center gap-2"
+              className="fixed right-4 top-[calc(1rem+env(safe-area-inset-top))] z-10 flex items-center gap-2"
             >
               <a
                 href={`${import.meta.env.BASE_URL}projects/${activeProject.id}`}
@@ -224,9 +230,6 @@ function Projects() {
                 >
                   ← Все проекты
                 </button>
-                <span>
-                  {expandedMeta?.category ?? activeProject.category ?? ''}
-                </span>
               </div>
               <ExpandedProject
                 title={

@@ -1,6 +1,6 @@
 import { useEffect, type MouseEvent } from 'react'
 import { AnimatePresence, motion, useMotionValue, useSpring } from 'framer-motion'
-import { ArrowRight, Mail, Send, X } from 'lucide-react'
+import { Mail, Send, X } from 'lucide-react'
 import { typograph } from '@/lib/typograph'
 import { closeAbout, useAboutState } from '@/lib/aboutStore'
 
@@ -56,18 +56,24 @@ function AboutModal() {
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-[70] bg-black/60 backdrop-blur-sm"
+          className="fixed inset-0 z-[70]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
           onClick={closeAbout}
         >
+          {/* Bleeds past the viewport so page content doesn't show
+              through floating browser chrome (URL bar, toolbars) */}
+          <div
+            aria-hidden="true"
+            className="absolute -inset-y-[20vh] inset-x-0 bg-black/60 backdrop-blur-sm"
+          />
           <motion.div
             role="dialog"
             aria-modal="true"
             aria-label="Обо мне"
-            className="absolute inset-4 flex flex-col overflow-hidden rounded-[24px] border-[2px] border-[var(--color-border)] bg-bg"
+            className="absolute inset-x-4 bottom-4 top-[calc(1rem+env(safe-area-inset-top))] flex flex-col overflow-hidden rounded-[24px] border-[2px] border-[var(--color-border)] bg-bg"
             initial={{ opacity: 0, y: 32, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 32, scale: 0.98 }}
@@ -140,20 +146,6 @@ function AboutModal() {
                   ))}
                 </motion.div>
 
-                <motion.button
-                  type="button"
-                  onClick={closeAbout}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="group mt-2 inline-flex items-center gap-2 rounded-full bg-fg px-6 py-3 text-sm font-semibold text-bg transition-transform hover:scale-[1.03] active:scale-[0.98]"
-                >
-                  Перейти к просмотру
-                  <ArrowRight
-                    size={16}
-                    className="transition-transform group-hover:translate-x-1"
-                  />
-                </motion.button>
               </div>
             </div>
           </motion.div>
