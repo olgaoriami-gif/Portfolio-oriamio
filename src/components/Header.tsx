@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Menu, X, Sun, Moon } from 'lucide-react'
 import { useTheme } from '@/lib/useTheme'
@@ -20,9 +20,6 @@ function Header() {
       : '3d'
 
   const isHome = location.pathname === '/'
-  const navigate = useNavigate()
-
-  const menuItemClass = 'text-left text-sm text-fg-secondary hover:text-fg'
 
   // Hide on scroll down, reveal after a short upward scroll
   useEffect(() => {
@@ -48,23 +45,6 @@ function Header() {
     if (open) setHidden(false)
   }, [open])
 
-  const goProjects = () => {
-    setOpen(false)
-    const scroll = () =>
-      document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
-    if (isHome) {
-      scroll()
-    } else {
-      navigate('/')
-      setTimeout(scroll, 100)
-    }
-  }
-
-  const goAbout = () => {
-    openAbout()
-    setOpen(false)
-  }
-
   const handleCategoryChange = (cat: Category) => {
     setSearchParams({ category: cat })
     setOpen(false)
@@ -75,13 +55,19 @@ function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-transform duration-300 ${
+      className={`sticky top-[env(safe-area-inset-top)] z-50 transition-transform duration-300 ${
         hidden && !open ? '-translate-y-full' : ''
       }`}
     >
       <div className="mx-auto flex h-20 w-full items-center justify-between px-4">
         <div className={`${pill} gap-3 py-2 pl-4 pr-2`}>
-          <Link to="/" className="text-lg font-bold tracking-tight text-fg md:text-xl">
+          <Link
+            to="/"
+            onClick={() => {
+              if (isHome) window.scrollTo({ top: 0, behavior: 'smooth' })
+            }}
+            className="text-lg font-bold tracking-tight text-fg md:text-xl"
+          >
             <span>ORIAMIO</span>
           </Link>
           <motion.div
@@ -128,39 +114,25 @@ function Header() {
               {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
             </button>
             {/* Mobile menu button */}
-            <button
-              type="button"
-              className="flex h-9 w-9 items-center justify-center rounded-full text-fg-secondary transition-colors hover:bg-bg-elevated hover:text-fg md:hidden"
-              aria-label={open ? 'Закрыть меню' : 'Открыть меню'}
-              aria-expanded={open}
-              onClick={() => setOpen((s) => !s)}
-            >
-              {open ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            {isHome && (
+              <button
+                type="button"
+                className="flex h-9 w-9 items-center justify-center rounded-full text-fg-secondary transition-colors hover:bg-bg-elevated hover:text-fg md:hidden"
+                aria-label={open ? 'Закрыть меню' : 'Открыть меню'}
+                aria-expanded={open}
+                onClick={() => setOpen((s) => !s)}
+              >
+                {open ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            )}
           </div>
         </div>
       </div>
-      {open && (
+      {open && isHome && (
         <div className="mx-4 mb-3 rounded-2xl border-[length:var(--border-width)] border-[var(--color-border)] bg-bg/90 px-4 py-4 backdrop-blur md:hidden">
-          <nav className="flex flex-col gap-4">
-            <Link to="/" className={menuItemClass} onClick={() => setOpen(false)}>
-              Главная
-            </Link>
-            <button type="button" className={menuItemClass} onClick={goProjects}>
-              Проекты
-            </button>
-            <button type="button" className={menuItemClass} onClick={goAbout}>
-              Обо мне
-            </button>
-            <button type="button" className={menuItemClass} onClick={goAbout}>
-              Контакты
-            </button>
-          </nav>
-          {isHome && (
-            <div className="mt-4 flex justify-center">
-              <CategorySwitcher active={active} onChange={handleCategoryChange} />
-            </div>
-          )}
+          <div className="flex justify-center">
+            <CategorySwitcher active={active} onChange={handleCategoryChange} />
+          </div>
         </div>
       )}
     </header>

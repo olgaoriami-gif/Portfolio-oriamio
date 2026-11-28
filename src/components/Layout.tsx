@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet, useLocation, useNavigationType } from 'react-router-dom'
 import Header from './Header'
 import Footer from './Footer'
 import AboutModal from './AboutModal'
@@ -7,7 +7,13 @@ import { openAbout, useAboutState } from '@/lib/aboutStore'
 
 function Layout() {
   const location = useLocation()
+  const navType = useNavigationType()
   const { seen } = useAboutState()
+
+  // Scroll to top on navigation, keep position on history back/forward
+  useEffect(() => {
+    if (navType !== 'POP') window.scrollTo(0, 0)
+  }, [location.pathname, navType])
 
   // Intro modal shows once per session on the home page
   useEffect(() => {
