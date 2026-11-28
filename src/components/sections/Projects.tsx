@@ -188,7 +188,7 @@ function Projects() {
                 through floating browser chrome (URL bar, toolbars) */}
             <div
               aria-hidden="true"
-              className="fixed -inset-y-[20vh] inset-x-0 bg-bg"
+              className="fixed -inset-y-[20vh] inset-x-0 -z-10 bg-bg"
             />
             {/* Pinned controls — stay top-right while scrolling */}
             <div
